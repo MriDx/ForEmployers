@@ -3,7 +3,7 @@
     <item android:state_pressed="true" >
         <shape>
             <solid
-                android:color="#B30000FF" />
+                android:color="#B3FFD6CB" />
 
             <corners android:bottomRightRadius="0dp"
                 android:bottomLeftRadius="7dp"
@@ -19,14 +19,14 @@
     <item>
         <shape>
             <gradient
-                android:startColor="#0797D8"
-                android:endColor="#A8F2FB"
-                android:centerColor="#77C1FB"
+                android:startColor="#E4FCFF"
+                android:endColor="#FFFFFF"
+                android:centerColor="#EEFDFF"
                 android:angle="90" />
 
             <corners android:bottomRightRadius="50dp"
-                android:bottomLeftRadius="50dp"
-                android:topLeftRadius="50dp"
+                android:bottomLeftRadius="7dp"
+                android:topLeftRadius="7dp"
                 android:topRightRadius="50dp" />
             <padding
                 android:left="10dp"

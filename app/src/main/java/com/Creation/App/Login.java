@@ -32,7 +32,6 @@ public class Login extends AppCompatActivity {
     Button mCreateUserBtn;
     Button mResetBtn;
     ProgressBar progressBar;
-    TextView textResetPassword;
     FirebaseAuth fAuth;
 
 
@@ -46,7 +45,6 @@ public class Login extends AppCompatActivity {
         mPassword = findViewById(R.id.loginPassword);
         mLoginBtn = findViewById(R.id.LoginBtn);
         mCreateUserBtn = findViewById(R.id.CreateUserBtn);
-        textResetPassword = findViewById(R.id.textResetPassword);
         mResetBtn = findViewById(R.id.Resetbtn);
         progressBar = findViewById(R.id.progressBar3);
         fAuth = FirebaseAuth.getInstance();
@@ -113,7 +111,7 @@ public class Login extends AppCompatActivity {
         });
 
 
-                textResetPassword.setOnClickListener(new View.OnClickListener() {
+                mResetBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         final EditText resetMail = new EditText(view.getContext());
@@ -136,7 +134,7 @@ public class Login extends AppCompatActivity {
                                 }).addOnFailureListener(new OnFailureListener() {
                                     @Override
                                     public void onFailure(@NonNull Exception e) {
-                                        Toast.makeText(Login.this, "Error ! Reset LInk is Note Sent" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(Login.this, "Error ! Reset LInk is Note Sent" + e. getMessage(), Toast.LENGTH_SHORT).show();
                                     }
                                 });
                             }
