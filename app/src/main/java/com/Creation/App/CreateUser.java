@@ -25,6 +25,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class CreateUser extends AppCompatActivity {
     EditText mfullName,mEmail,mPassword,mPhone,mcompanyName;
@@ -34,6 +35,7 @@ public class CreateUser extends AppCompatActivity {
     ProgressBar progressBar;
     FirebaseFirestore fStore;
     String userId;
+    String n;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +48,7 @@ public class CreateUser extends AppCompatActivity {
         mPassword = findViewById(R.id.editPassword);
         mPhone = findViewById(R.id.editPhone);
         mRegisterBtn = findViewById(R.id.RegisterBtn);
-        malreadRegisteredBtn = findViewById(R.id.alreadyRegisteredBtn);
+
 
         fAuth = FirebaseAuth.getInstance();
         progressBar = findViewById(R.id.progressBar);
@@ -118,7 +120,7 @@ public class CreateUser extends AppCompatActivity {
 
 
                             Toast.makeText(CreateUser.this, "User Created", Toast.LENGTH_SHORT).show();
-                            userId = fAuth.getCurrentUser().getUid();
+                            userId = Objects.requireNonNull(fAuth.getCurrentUser()).getUid();
                             DocumentReference documentReference = fStore.collection("Users Detail").document(userId);
                             Map<String,Object> user = new HashMap<>();
                             user.put ("Full Name",fullName);
@@ -135,23 +137,14 @@ public class CreateUser extends AppCompatActivity {
 
 
                         }else {
-                            Toast.makeText(CreateUser.this, "Error !"+ task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(CreateUser.this, "Error !"+ Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_SHORT).show();
                             progressBar.setVisibility(View.GONE);
                         }
                     }
                 });
 
-
             }
         });
-
-
-
-
-
-
-
-
 
         Button alreadyRegisteredBtn = findViewById(R.id.alreadyRegisteredBtn);
         alreadyRegisteredBtn.setOnClickListener(new View.OnClickListener() {
