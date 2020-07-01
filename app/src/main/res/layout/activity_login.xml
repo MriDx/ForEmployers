@@ -169,16 +169,15 @@
         app:layout_constraintVertical_bias="0.55" />
 
     <ImageView
-        android:id="@+id/imageView5"
-        android:layout_width="388dp"
-        android:layout_height="175dp"
-        android:layout_marginBottom="11dp"
-        android:background="@drawable/logo_create_user"
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
         app:layout_constraintBottom_toTopOf="@+id/textEmail"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.46"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.23000002" />
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/second_logo" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
