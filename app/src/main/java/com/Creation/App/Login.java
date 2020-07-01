@@ -7,7 +7,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.util.Log;
+import android.view.ContextThemeWrapper;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -40,14 +43,14 @@ public class Login extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login2);
+        setContentView(R.layout.activity_login);
 
         mEmail = findViewById(R.id.loginEmailId);
         mPassword = findViewById(R.id.loginPassword);
         mLoginBtn = findViewById(R.id.LoginBtn);
         mCreateUserBtn = findViewById(R.id.CreateUserBtn);
-        textResetPassword = findViewById(R.id.textResetPassword);
-        mResetBtn = findViewById(R.id.Resetbtn);
+        textResetPassword = findViewById(R.id.Resetbtn);
+
         progressBar = findViewById(R.id.progressBar3);
         fAuth = FirebaseAuth.getInstance();
 
@@ -116,37 +119,43 @@ public class Login extends AppCompatActivity {
                 textResetPassword.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        final EditText resetMail = new EditText(view.getContext());
-                        final AlertDialog.Builder passwordResetDialog = new AlertDialog.Builder(view.getContext());
-                        passwordResetDialog.setTitle("Reset Password ?");
-                        passwordResetDialog.setMessage("Enter Your Email To Received Reset Link.");
-                        passwordResetDialog.setView(resetMail);
 
-                        passwordResetDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                //extract the email and send reset link
+                        final EditText input = new EditText(getApplicationContext());
+                        AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(Login.this, R.style.myDialog));
+                               builder.setTitle("Update Status")
+                                .setMessage("message")
+                                .setView(input)
+                                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int whichButton) {
+                                        Editable value = input.getText();
 
-                                String mail = resetMail.getText().toString();
-                                fAuth.sendPasswordResetEmail(mail).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void aVoid) {
-                                        Toast.makeText(Login.this, "Reset Link Sent To Your Email.", Toast.LENGTH_SHORT).show();
+                                        FirebaseAuth auth = FirebaseAuth.getInstance();
+                                        String emailaddress =String.valueOf(input.getText());
+                                        auth.sendPasswordResetEmail(emailaddress)
+                                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<Void> task) {
+                                                        if (task.isSuccessful()) {
+                                                            //    Log.d(TAG, "Email sent.");
+                                                            Toast.makeText(getApplicationContext(), "Check Your Email", Toast.LENGTH_SHORT).show();
+                                                        } else {
+                                                            Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                                        }
+                                                    }
+                                                });
+
+
+
                                     }
-                                }).addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Toast.makeText(Login.this, "Error ! Reset LInk is Note Sent" + e.getMessage(), Toast.LENGTH_SHORT).show();
-                                    }
-                                });
+                                }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                // Do nothing.
                             }
-                        });
-                        passwordResetDialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                //Close the dialog
-                            }
-                        });
+                        }).show();
+
+                                // Do something with value!
+
+
 
 
             }
