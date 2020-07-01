@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/new_login_background"
+    android:background="@drawable/loginbackgroundimg"
     tools:context=".Login">
 
     <View
@@ -167,18 +167,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.55" />
-
-    <ImageView
-        android:id="@+id/imageView5"
-        android:layout_width="388dp"
-        android:layout_height="175dp"
-        android:layout_marginBottom="11dp"
-        android:background="@drawable/logo_create_user"
-        app:layout_constraintBottom_toTopOf="@+id/textEmail"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.46"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.23000002" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
