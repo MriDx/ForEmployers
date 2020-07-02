@@ -59,7 +59,7 @@ public class Login extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                String email = mEmail.getText().toString().trim();
+                final String email = mEmail.getText().toString().trim();
                 String password = mPassword.getText().toString().trim();
 
                 if(TextUtils.isEmpty(email)){
@@ -89,11 +89,14 @@ public class Login extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                      if(task.isSuccessful()){
                          Toast.makeText(Login.this, "Logged in Successfully", Toast.LENGTH_SHORT).show();
+                         UserSession userSession=new UserSession(Login.this);
+                         userSession.setEmail(email);
                          startActivity(new Intent(getApplicationContext(),MainActivity.class));
                      }else{
                          Toast.makeText(Login.this, "Error !"+ task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                          progressBar.setVisibility(View.GONE);
                      }
+
 
                     }
                 });
@@ -154,6 +157,7 @@ public class Login extends AppCompatActivity {
                         }).show();
 
                                 // Do something with value!
+
 
 
 
