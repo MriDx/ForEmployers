@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Window;
 
+import com.google.firebase.firestore.auth.User;
+
 public class Splash extends AppCompatActivity {
 
     @Override
@@ -13,6 +15,7 @@ public class Splash extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);//will hide the title
         getSupportActionBar().hide(); //hide the title bar
+        final UserSession userSession= new UserSession(Splash.this);
         setContentView(R.layout.activity_splash);
 
 
@@ -23,9 +26,17 @@ public class Splash extends AppCompatActivity {
             public void run(){
                 try {
                     sleep(3000);
-                    Intent intent = new Intent(getApplicationContext(),Login.class);
-                    startActivity(intent);
-                    finish();
+                    if(userSession.getEmail() !="") {
+                        Intent intent = new Intent(getApplicationContext(), VerificationPage.class);
+                        intent.putExtra("email", userSession.getEmail());
+                        startActivity(intent);
+                        finish();
+                    }
+                    else{
+                        Intent intent = new Intent(getApplicationContext(), Login.class);
+                        startActivity(intent);
+                        finish();
+                    }
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
