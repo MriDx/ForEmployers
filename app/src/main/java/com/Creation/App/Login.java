@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.ContextThemeWrapper;
 import android.view.View;
 import android.widget.Button;
@@ -17,23 +16,14 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.FirebaseFirestore;
-
-import java.util.HashMap;
 
 public class Login extends AppCompatActivity {
     EditText mEmail,mPassword;
     Button mLoginBtn;
-    Button mCreateUserBtn;
-    Button mResetBtn;
     ProgressBar progressBar;
     TextView textResetPassword;
     FirebaseAuth fAuth;
@@ -48,7 +38,6 @@ public class Login extends AppCompatActivity {
         mEmail = findViewById(R.id.loginEmailId);
         mPassword = findViewById(R.id.loginPassword);
         mLoginBtn = findViewById(R.id.LoginBtn);
-        mCreateUserBtn = findViewById(R.id.CreateUserBtn);
         textResetPassword = findViewById(R.id.Resetbtn);
 
         progressBar = findViewById(R.id.progressBar3);
@@ -91,7 +80,11 @@ public class Login extends AppCompatActivity {
                          Toast.makeText(Login.this, "Logged in Successfully", Toast.LENGTH_SHORT).show();
                          UserSession userSession=new UserSession(Login.this);
                          userSession.setEmail(email);
-                         startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                         Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+                         intent.putExtra("name",userSession.getEmail());
+                         startActivity(intent);
+                         finish();
+
                      }else{
                          Toast.makeText(Login.this, "Error !"+ task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                          progressBar.setVisibility(View.GONE);
