@@ -14,16 +14,20 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+
+import io.opencensus.tags.Tag;
 
 public class CreateUser extends AppCompatActivity {
     EditText mfullName, mEmail, mPassword, mPhone, mcompanyName;
@@ -98,6 +102,22 @@ public class CreateUser extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
+                            //send Verification Link
+
+                            FirebaseUser userverify = fAuth.getCurrentUser();
+                            userverify.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Toast.makeText(CreateUser.this, "Email Verification Link is Send to your Email.", Toast.LENGTH_SHORT).show();
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.d("TAG", "onFailure: Email Verification link is not sent"+ e.getMessage());
+                                }
+                            });
+
+
                             Toast.makeText(CreateUser.this, "User Created", Toast.LENGTH_SHORT).show();
                             userId = Objects.requireNonNull(fAuth.getCurrentUser()).getUid();
                             DocumentReference documentReference = fStore.collection("Users Detail").document(userId);

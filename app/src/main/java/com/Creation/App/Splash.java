@@ -27,7 +27,7 @@ public class Splash extends AppCompatActivity {
                 try {
                     sleep(3000);
                     if(userSession.getEmail() !="") {
-                        Intent intent = new Intent(getApplicationContext(), VerificationPage.class);
+                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                         intent.putExtra("email", userSession.getEmail());
                         startActivity(intent);
                         finish();

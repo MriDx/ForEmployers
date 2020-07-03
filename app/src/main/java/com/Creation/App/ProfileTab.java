@@ -4,6 +4,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -34,6 +35,7 @@ public class ProfileTab extends AppCompatActivity {
         fStore = FirebaseFirestore.getInstance();
 
         UserId = fAuth.getCurrentUser().getUid();
+        FirebaseUser user = fAuth.getCurrentUser();
 
 
         DocumentReference documentReference = fStore.collection("Users Detail").document(UserId);
@@ -47,6 +49,9 @@ public class ProfileTab extends AppCompatActivity {
 
             }
         });
+
+
+
 
 
 
