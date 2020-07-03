@@ -80,7 +80,7 @@ public class Login extends AppCompatActivity {
                          Toast.makeText(Login.this, "Logged in Successfully", Toast.LENGTH_SHORT).show();
                          UserSession userSession=new UserSession(Login.this);
                          userSession.setEmail(email);
-                         Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+                         Intent intent = new Intent(getApplicationContext(),MainActivity2.class);
                          intent.putExtra("name",userSession.getEmail());
                          startActivity(intent);
                          finish();

@@ -20,6 +20,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.auth.User;
 
+import java.util.Objects;
+
 public class MainActivity extends AppCompatActivity {
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
@@ -40,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         fAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
 
-        UserId = fAuth.getCurrentUser().getUid();
+        UserId = Objects.requireNonNull(fAuth.getCurrentUser()).getUid();
         FirebaseUser user = fAuth.getCurrentUser();
 
         if(!user.isEmailVerified()) {
