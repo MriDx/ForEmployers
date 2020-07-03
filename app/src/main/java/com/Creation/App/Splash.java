@@ -10,8 +10,8 @@ public class Splash extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);//will hide the title
-        getSupportActionBar().hide(); //hide the title bar
+     //   requestWindowFeature(Window.FEATURE_NO_TITLE);//will hide the title
+      //  getSupportActionBar().hide(); //hide the title bar
         final UserSession userSession= new UserSession(Splash.this);
         setContentView(R.layout.activity_splash);
 
@@ -24,7 +24,7 @@ public class Splash extends AppCompatActivity {
                 try {
                     sleep(3000);
                     if(userSession.getEmail() !="") {
-                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                        Intent intent = new Intent(getApplicationContext(), MainActivity2.class);
                         intent.putExtra("name",userSession.getEmail());
                         startActivity(intent);
                         finish();
