@@ -3,16 +3,12 @@ package com.Creation.App;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.auth.User;
-
 public class UserSession {
-    FirebaseAuth fAuth;
     Context context;
 
-    public void removeuser() {
-        sharedPreferences.edit().clear().commit();
+
+    public void removeUser(){
+        sharedPreferences.edit().clear().apply();
     }
 
     public String getEmail() {
@@ -22,7 +18,7 @@ public class UserSession {
 
     public void setEmail(String email) {
         this.email = email;
-        sharedPreferences.edit().putString("userdata", email).commit();
+        sharedPreferences.edit().putString("userdata", email).apply();
     }
 
     private String email;
