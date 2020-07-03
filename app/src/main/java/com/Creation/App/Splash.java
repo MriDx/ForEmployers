@@ -5,9 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Window;
-
-import com.google.firebase.firestore.auth.User;
-
 public class Splash extends AppCompatActivity {
 
     @Override
@@ -28,7 +25,7 @@ public class Splash extends AppCompatActivity {
                     sleep(3000);
                     if(userSession.getEmail() !="") {
                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                        intent.putExtra("email", userSession.getEmail());
+                        intent.putExtra("name",userSession.getEmail());
                         startActivity(intent);
                         finish();
                     }
