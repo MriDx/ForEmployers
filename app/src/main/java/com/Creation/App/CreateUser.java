@@ -27,17 +27,14 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-import io.opencensus.tags.Tag;
-
 public class CreateUser extends AppCompatActivity {
     EditText mfullName, mEmail, mPassword, mPhone, mcompanyName;
     Button mRegisterBtn;
-   
+
     FirebaseAuth fAuth;
     ProgressBar progressBar;
     FirebaseFirestore fStore;
     String userId;
-    String n;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,6 +102,7 @@ public class CreateUser extends AppCompatActivity {
                             //send Verification Link
 
                             FirebaseUser userverify = fAuth.getCurrentUser();
+                            //noinspection ConstantConditions
                             userverify.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/loginbackgroundimg"
+    android:background="@drawable/new_login_background"
     tools:context=".Login">
 
     <View
@@ -36,7 +36,8 @@
         app:layout_constraintHorizontal_bias="0.22"
         app:layout_constraintStart_toStartOf="@+id/view2"
         app:layout_constraintTop_toTopOf="@+id/view2"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.0"
+        tools:ignore="HardcodedText" />
 
     <EditText
         android:id="@+id/loginEmailId"
@@ -57,7 +58,8 @@
         app:layout_constraintHorizontal_bias="0.226"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textEmail"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.0"
+        tools:ignore="Autofill,HardcodedText" />
 
     <TextView
         android:id="@+id/textPassword"
@@ -75,7 +77,8 @@
         app:layout_constraintHorizontal_bias="0.226"
         app:layout_constraintStart_toStartOf="@+id/view2"
         app:layout_constraintTop_toBottomOf="@+id/loginEmailId"
-        app:layout_constraintVertical_bias="0.024" />
+        app:layout_constraintVertical_bias="0.024"
+        tools:ignore="HardcodedText" />
 
     <EditText
         android:id="@+id/loginPassword"
@@ -96,7 +99,8 @@
         app:layout_constraintHorizontal_bias="0.226"
         app:layout_constraintStart_toStartOf="@+id/view2"
         app:layout_constraintTop_toBottomOf="@+id/textPassword"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.0"
+        tools:ignore="Autofill,HardcodedText" />
 
     <Button
         android:id="@+id/LoginBtn"
@@ -108,7 +112,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.91"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/view2" />
+        app:layout_constraintTop_toTopOf="@+id/view2"
+        tools:ignore="HardcodedText" />
 
     <Button
         android:id="@+id/Resetbtn"
@@ -125,7 +130,8 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.76" />
+        app:layout_constraintVertical_bias="0.76"
+        tools:ignore="HardcodedText" />
 
     <Button
         android:id="@+id/CreateUserBtn"
@@ -140,7 +146,8 @@
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Resetbtn" />
+        app:layout_constraintTop_toBottomOf="@+id/Resetbtn"
+        tools:ignore="HardcodedText" />
 
     <ImageView
         android:id="@+id/imageView2"
@@ -151,7 +158,8 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/loginPassword"
         app:layout_constraintTop_toTopOf="@+id/loginPassword"
-        app:srcCompat="@android:drawable/ic_secure" />
+        app:srcCompat="@android:drawable/ic_secure"
+        tools:ignore="ContentDescription" />
 
     <ProgressBar
         android:id="@+id/progressBar3"
@@ -167,5 +175,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.55" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        app:layout_constraintBottom_toTopOf="@+id/textEmail"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/second_logo"
+        tools:ignore="ContentDescription" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

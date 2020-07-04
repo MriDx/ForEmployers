@@ -15,6 +15,7 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 
+@SuppressWarnings("ConstantConditions")
 public class ProfileTab extends AppCompatActivity {
     TextView fullName,phone,email,companyName;
     FirebaseAuth fAuth;

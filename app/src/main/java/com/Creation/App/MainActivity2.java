@@ -1,7 +1,6 @@
 package com.Creation.App;
 
 import android.os.Bundle;
-import android.widget.Toolbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
@@ -11,9 +10,6 @@ import com.google.android.material.tabs.TabLayout;
 //Implementing the interface OnTabSelectedListener to our MainActivity
 //This interface would help in swiping views
 public class MainActivity2 extends AppCompatActivity implements TabLayout.OnTabSelectedListener{
-
-    //This is our tablayout
-    private TabLayout tabLayout;
 
     //This is our viewPager
     private ViewPager viewPager;
@@ -28,17 +24,18 @@ public class MainActivity2 extends AppCompatActivity implements TabLayout.OnTabS
       //  setSupportActionBar(toolbar);
 
         //Initializing the tablayout
-        tabLayout = (TabLayout) findViewById(R.id.tabLayout);
+        //This is our tablayout
+        TabLayout tabLayout = findViewById(R.id.tabLayout);
 
         //Adding the tabs using addTab() method
-        tabLayout.addTab(tabLayout.newTab().setText("Tab1"));
-        tabLayout.addTab(tabLayout.newTab().setText("Tab2"));
-        tabLayout.addTab(tabLayout.newTab().setText("Tab3"));
-        tabLayout.addTab(tabLayout.newTab().setText("Tab4"));
+        tabLayout.addTab(tabLayout.newTab().setText("Month"));
+        tabLayout.addTab(tabLayout.newTab().setText("Annual"));
+        tabLayout.addTab(tabLayout.newTab().setText("Employees"));
+        tabLayout.addTab(tabLayout.newTab().setText("Profile"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         //Initializing viewPager
-        viewPager = (ViewPager) findViewById(R.id.pager);
+        viewPager = findViewById(R.id.pager);
 
         //Creating our pager adapter
         Pager adapter = new Pager(getSupportFragmentManager(), tabLayout.getTabCount());
