@@ -23,7 +23,7 @@ public class Splash extends AppCompatActivity {
             @Override
             public void run(){
                 try {
-                    sleep(3000);
+                    sleep(1000);
                     if(userSession.getEmail() !="") {
                         Intent intent = new Intent(getApplicationContext(), MainActivity2.class);
                         intent.putExtra("name",userSession.getEmail());
