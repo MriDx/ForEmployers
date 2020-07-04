@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
 import android.text.TextUtils;
 import android.view.ContextThemeWrapper;
 import android.view.View;
@@ -86,6 +85,7 @@ public class Login extends AppCompatActivity {
                          finish();
 
                      }else{
+                         //noinspection ConstantConditions
                          Toast.makeText(Login.this, "Error !"+ task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                          progressBar.setVisibility(View.GONE);
                      }
@@ -123,7 +123,6 @@ public class Login extends AppCompatActivity {
                                 .setView(input)
                                 .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int whichButton) {
-                                        Editable value = input.getText();
 
                                         FirebaseAuth auth = FirebaseAuth.getInstance();
                                         String emailaddress =String.valueOf(input.getText());
@@ -135,6 +134,7 @@ public class Login extends AppCompatActivity {
                                                             //    Log.d(TAG, "Email sent.");
                                                             Toast.makeText(getApplicationContext(), "Check Your Email", Toast.LENGTH_SHORT).show();
                                                         } else {
+                                                            //noinspection ConstantConditions
                                                             Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                                                         }
                                                     }

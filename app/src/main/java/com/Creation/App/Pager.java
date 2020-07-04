@@ -5,6 +5,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
 //Extending FragmentStatePagerAdapter
+@SuppressWarnings("ALL")
 public class Pager extends FragmentStatePagerAdapter {
 
     //integer to count number of tabs

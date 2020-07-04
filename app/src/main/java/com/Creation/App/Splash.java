@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Window;
+@SuppressWarnings("StringEquality")
 public class Splash extends AppCompatActivity {
 
     @Override
