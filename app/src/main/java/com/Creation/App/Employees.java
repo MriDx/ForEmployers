@@ -1,5 +1,6 @@
 package com.Creation.App;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,34 +10,49 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+@SuppressWarnings("ConstantConditions")
 public class Employees extends AppCompatActivity {
-    FirebaseAuth fAuth;
 
     FirebaseFirestore fStore;
+    FirebaseAuth fAuth;
     String userId;
+    ListView listView;
+    private List<String> namesList= new ArrayList<>();
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_employees);
-        fAuth = FirebaseAuth.getInstance();
-
         fStore = FirebaseFirestore.getInstance();
+        fAuth = FirebaseAuth.getInstance();
+        userId = fAuth.getCurrentUser().getUid();
+
+
+
+//All the Buttons. which intregated in bottom.
         Button Monthly=findViewById(R.id.btn_monthly);
         Button Annual=findViewById(R.id.btn_annual);
         Button Employee=findViewById(R.id.btn_employees);
@@ -74,7 +90,28 @@ public class Employees extends AppCompatActivity {
             }
         });
 
+        fStore.collection("User Details").document(userId).collection("Employee List")
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent( QuerySnapshot queryDocumentSnapshots, FirebaseFirestoreException e) {
+                        namesList.clear();
+                        for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots){
+                            namesList.add(documentSnapshot.getString("Full Name"));
+                        }
+                        ArrayAdapter<String>adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.activity_list_item, namesList);
+                        adapter.notifyDataSetChanged();
+                        listView.setAdapter(adapter);
+                    }
+                });
 
+
+
+
+
+
+
+
+        //Add
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
