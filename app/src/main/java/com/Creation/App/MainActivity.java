@@ -1,8 +1,5 @@
 package com.Creation.App;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,6 +7,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -27,7 +27,6 @@ public class MainActivity extends AppCompatActivity {
     TextView textEmailVerified;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
         UserId = Objects.requireNonNull(fAuth.getCurrentUser()).getUid();
         FirebaseUser user = fAuth.getCurrentUser();
 
-        if(!user.isEmailVerified()) {
+        if (!user.isEmailVerified()) {
             user.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
@@ -53,21 +52,20 @@ public class MainActivity extends AppCompatActivity {
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    Log.d("TAG", "onFailure: Email Verification link is not sent"+ e.getMessage());
+                    Log.d("TAG", "onFailure: Email Verification link is not sent" + e.getMessage());
                 }
             });
 
             VerifyEmail.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent=new Intent(getApplicationContext(),Login.class);
+                    Intent intent = new Intent(getApplicationContext(), Login.class);
                     startActivity(intent);
                     finish();
                 }
             });
-        }
-        else{
-            Intent intent=new Intent(getApplicationContext(),Monthly.class);
+        } else {
+            Intent intent = new Intent(getApplicationContext(), Monthly.class);
             startActivity(intent);
             finish();
         }

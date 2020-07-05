@@ -1,96 +1,46 @@
 package com.Creation.App;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
 
-import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
-import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.Query;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 public class Employees extends AppCompatActivity {
+    FirebaseAuth fAuth;
 
-    private RecyclerView mfirestore_list;
-    private FirebaseFirestore firebaseFirestore;
-    FirebaseAuth firebaseAuth;
-    String UserId;
-    private FirestoreRecyclerAdapter adapter;
-
+    FirebaseFirestore fStore;
+    String userId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_employees);
+        fAuth = FirebaseAuth.getInstance();
+
+        fStore = FirebaseFirestore.getInstance();
         Button Monthly=findViewById(R.id.btn_monthly);
         Button Annual=findViewById(R.id.btn_annual);
         Button Employee=findViewById(R.id.btn_employees);
         Button Profile=findViewById(R.id.btn_profile);
-
-        mfirestore_list = findViewById(R.id.recyclerView);
-        firebaseAuth = FirebaseAuth.getInstance();
-        firebaseFirestore = FirebaseFirestore.getInstance();
-        UserId = firebaseAuth.getCurrentUser().getUid();
-
-
-        //Query
-        Query query = firebaseFirestore.collectionGroup("EmployeeList").whereEqualTo("User Details","name");
-
-        //Recycler Option
-        FirestoreRecyclerOptions<EmployeeModel> options = new FirestoreRecyclerOptions.Builder<EmployeeModel>()
-                .setQuery(query, EmployeeModel.class)
-                .build();
-
-
-         adapter = new FirestoreRecyclerAdapter<EmployeeModel, EmployeeViewHolder>(options) {
-            @NonNull
-            @Override
-            public EmployeeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_employee_signal, parent, false);
-                return new EmployeeViewHolder(view);
-            }
-
-            @Override
-            protected void onBindViewHolder(@NonNull EmployeeViewHolder holder, int position, @NonNull EmployeeModel model) {
-                holder.list_name.setText(model.getName());
-
-            }
-        };
-
-         mfirestore_list.setHasFixedSize(true);
-         mfirestore_list.setLayoutManager(new LinearLayoutManager(this));
-         mfirestore_list.setAdapter(adapter);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        //Buttons
         Monthly.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -125,17 +75,60 @@ public class Employees extends AppCompatActivity {
         });
 
 
-    }
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        adapter.stopListening();
-    }
+                LayoutInflater factory = LayoutInflater.from(Employees.this);
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        adapter.startListening();
+//text_entry is an Layout XML file containing two text field to display in alert dialog
+                final View textEntryView = factory.inflate(R.layout.text_entry, null);
+
+                final EditText input1 = (EditText) textEntryView.findViewById(R.id.EditText1);
+                final EditText input2 = (EditText) textEntryView.findViewById(R.id.EditText2);
+
+
+                input1.setText(" ", TextView.BufferType.EDITABLE);
+                input2.setText(" ", TextView.BufferType.EDITABLE);
+
+                final AlertDialog.Builder alert = new AlertDialog.Builder(Employees.this);
+                alert.setView(textEntryView).setPositiveButton("Save",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,
+                                                int whichButton) {
+                                final String name=input1.getText().toString();
+
+                                String rf_id=input2.getText().toString();
+
+                                userId = Objects.requireNonNull(fAuth.getCurrentUser()).getUid();
+                                DocumentReference documentReference = fStore.collection("Users Detail").document(userId).collection("Employee List").document(rf_id);
+                                Map<String, Object> user = new HashMap<>();
+                                user.put("Full Name", name);
+
+                                documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        Log.d("TAG", "onSuccess: user Profile is Created for" + userId);
+                                        Toast.makeText(getApplicationContext(), "Id Created for"+name, Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+
+                                /* User clicked OK so do some stuff */
+
+                            }
+                        }).setNegativeButton("Cancel",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,
+                                                int whichButton) {
+                                /*
+                                 * User clicked cancel so do some stuff
+                                 */
+                            }
+                        });
+                alert.show();
+            }
+        });
+
     }
 }
