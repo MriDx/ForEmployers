@@ -4,8 +4,10 @@
         <shape>
             <solid
                 android:color="#B3FFD6CB" />
+            <stroke android:width="10dp"
+                android:color="#ff000000" />
 
-            <corners android:bottomRightRadius="0dp"
+            <corners android:bottomRightRadius="7dp"
                 android:bottomLeftRadius="7dp"
                 android:topLeftRadius="7dp"
                 android:topRightRadius="7dp" />
@@ -26,8 +28,8 @@
 
             <corners android:bottomRightRadius="7dp"
                 android:bottomLeftRadius="7dp"
-                android:topLeftRadius="50dp"
-                android:topRightRadius="50dp" />
+                android:topLeftRadius="7dp"
+                android:topRightRadius="7dp" />
             <padding
                 android:left="10dp"
                 android:top="10dp"

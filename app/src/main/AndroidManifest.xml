@@ -15,7 +15,6 @@
         <activity android:name=".Profile" />
         <activity android:name=".Monthly" />
         <activity android:name=".Annual" />
-        <activity android:name=".ProfileTab" />
         <activity android:name=".CreateUser" />
         <activity android:name=".MainActivity" />
         <activity android:name=".Login" />
