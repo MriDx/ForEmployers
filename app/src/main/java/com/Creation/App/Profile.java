@@ -42,6 +42,17 @@ public class Profile extends AppCompatActivity {
         Button Annual=findViewById(R.id.btn_annual);
         Button Employee=findViewById(R.id.btn_employees);
         Button Profile=findViewById(R.id.btn_profile);
+        Button logout=findViewById(R.id.LogoutBtn);
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                FirebaseAuth.getInstance().signOut();
+                new UserSession(Profile.this).removeUser();
+                startActivity(new Intent(Profile.this,Login.class));
+                finish();
+            }
+        });
         Monthly.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -137,10 +148,5 @@ public class Profile extends AppCompatActivity {
 
 
 
-    public void LogOut(View view) {
-        FirebaseAuth.getInstance().signOut();
-        new UserSession(Profile.this).removeUser();
-        startActivity(new Intent(Profile.this,Login.class));
-        finish();
-    }
+
 }
