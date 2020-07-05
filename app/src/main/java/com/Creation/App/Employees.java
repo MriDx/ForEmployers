@@ -1,5 +1,6 @@
 package com.Creation.App;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -15,13 +16,20 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -30,6 +38,7 @@ public class Employees extends AppCompatActivity {
 
     FirebaseFirestore fStore;
     String userId;
+    TextView get_user;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +50,25 @@ public class Employees extends AppCompatActivity {
         Button Annual=findViewById(R.id.btn_annual);
         Button Employee=findViewById(R.id.btn_employees);
         Button Profile=findViewById(R.id.btn_profile);
+        get_user=findViewById(R.id.get_user);
+        userId = Objects.requireNonNull(fAuth.getCurrentUser()).getUid();
+        FirebaseFirestore.getInstance().collection("Users Detail/"+userId+"/Employee List").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    List<String> list = new ArrayList<>();
+                    for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
+                        list.add(document.getString("Full Name"));
+                    }
+                    Log.d("TAG", list.toString());
+                    get_user.setText(list.toString());
+                    Toast.makeText(Employees.this, list.toString(), Toast.LENGTH_SHORT).show();
+                } else {
+                    Log.d("TAG", "Error getting documents: ", task.getException());
+                    Toast.makeText(Employees.this, "Error getting documents", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
         Monthly.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
