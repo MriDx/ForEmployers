@@ -50,7 +50,7 @@ public class Employees extends AppCompatActivity {
 
 
         //Query
-        Query query = firebaseFirestore.collectionGroup("EmployeeList").whereEqualTo("EmployeeList",UserId);
+        Query query = firebaseFirestore.collectionGroup("EmployeeList").whereEqualTo("User Details","name");
 
         //Recycler Option
         FirestoreRecyclerOptions<EmployeeModel> options = new FirestoreRecyclerOptions.Builder<EmployeeModel>()
