@@ -6,6 +6,9 @@ import android.content.SharedPreferences;
 public class UserSession {
     Context context;
 
+    public UserSession(Tab4 tab4) {
+    }
+
 
     public void removeUser(){
         sharedPreferences.edit().clear().apply();

@@ -68,4 +68,9 @@ public class MainActivity extends AppCompatActivity {
         startActivity(new Intent(getApplicationContext(),ProfileTab.class));
         finish();
     }
+
+    public void employeeBtn(View view) {
+        startActivity(new Intent(getApplicationContext(),EmployeeDetail.class));
+        finish();
+    }
 }
