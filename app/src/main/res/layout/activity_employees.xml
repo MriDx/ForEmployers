@@ -27,8 +27,7 @@
             android:background="@drawable/home_buttons"
             android:fontFamily="@font/akronim"
             android:text="Monthly"
-            android:textSize="14sp"
-            tools:ignore="ButtonStyle,HardcodedText" />
+            android:textSize="14sp" />
 
         <Button
             android:id="@+id/btn_annual"
@@ -40,8 +39,7 @@
             android:background="@drawable/home_buttons"
             android:fontFamily="@font/akronim"
             android:text="Annual"
-            android:textSize="14sp"
-            tools:ignore="ButtonStyle,HardcodedText" />
+            android:textSize="14sp" />
 
         <Button
             android:id="@+id/btn_employees"
@@ -52,9 +50,8 @@
             android:layout_weight="1"
             android:background="@drawable/home_buttons"
             android:fontFamily="@font/akronim"
-            android:text="Employees"
-            android:textSize="14sp"
-            tools:ignore="ButtonStyle,HardcodedText" />
+            android:text="Emp"
+            android:textSize="14sp" />
 
         <Button
             android:id="@+id/btn_profile"
@@ -66,8 +63,7 @@
             android:background="@drawable/home_buttons"
             android:fontFamily="@font/akronim"
             android:text="Profile"
-            android:textSize="14sp"
-            tools:ignore="ButtonStyle,HardcodedText" />
+            android:textSize="14sp" />
     </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -79,22 +75,14 @@
 
         app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
         app:layout_constraintEnd_toEndOf="@+id/linearLayout3"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/linearLayout3"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
         tools:ignore="MissingConstraints" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view"
-        android:layout_width="391dp"
-        android:layout_height="629dp"
-        android:layout_marginTop="11dp"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
-        app:layout_constraintEnd_toStartOf="@+id/fab"
-        app:layout_constraintHorizontal_bias="0.0"
+    <TextView
+        android:id="@+id/get_user"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
-
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

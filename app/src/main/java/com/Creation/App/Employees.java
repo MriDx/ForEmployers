@@ -1,11 +1,8 @@
 package com.Creation.App;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -13,10 +10,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,12 +21,9 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -40,63 +33,42 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-@SuppressWarnings("ConstantConditions")
 public class Employees extends AppCompatActivity {
+    FirebaseAuth fAuth;
 
     FirebaseFirestore fStore;
-    FirebaseAuth fAuth;
     String userId;
-    private RecyclerView mList;
-    private List<Employyes> employyesList;
-
-
+    TextView get_user;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_employees);
-        fStore = FirebaseFirestore.getInstance();
-        final EmployerListAdapter employerListAdapter = new EmployerListAdapter(employyesList);
         fAuth = FirebaseAuth.getInstance();
-        userId = Objects.requireNonNull(fAuth.getCurrentUser()).getUid();
-        mList = (RecyclerView) findViewById(R.id.recycler_view);
-        mList.setHasFixedSize(true);
-        mList.setAdapter(employerListAdapter);
-        mList.setLayoutManager(new LinearLayoutManager(this));
 
-
-
-        employyesList = new ArrayList<>();
-
-        fStore.collection("Users Detail/"+userId+"/Employee List").addSnapshotListener(new EventListener<QuerySnapshot>() {
-            private static final String TAG = "FireLog";
-
-            @Override
-            public void onEvent(QuerySnapshot queryDocumentSnapshots, FirebaseFirestoreException e) {
-
-                if(e !=null){
-
-                    Log.d(TAG,"Error"+ e.getMessage());
-                }
-                for(DocumentChange doc: queryDocumentSnapshots.getDocumentChanges()){
-
-                    if(doc.getType() == DocumentChange.Type.MODIFIED){
-                        Employyes employyes = doc.getDocument().toObject(Employyes.class);
-                        employyesList.add(employyes);
-
-                        employerListAdapter.notifyDataSetChanged();
-                    }
-                }
-
-            }
-        });
-
-
-
-        //All the Buttons. which intregated in bottom.
+        fStore = FirebaseFirestore.getInstance();
         Button Monthly=findViewById(R.id.btn_monthly);
         Button Annual=findViewById(R.id.btn_annual);
         Button Employee=findViewById(R.id.btn_employees);
         Button Profile=findViewById(R.id.btn_profile);
+        get_user=findViewById(R.id.get_user);
+        userId = Objects.requireNonNull(fAuth.getCurrentUser()).getUid();
+        FirebaseFirestore.getInstance().collection("Users Detail/"+userId+"/Employee List").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    List<String> list = new ArrayList<>();
+                    for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
+                        list.add(document.getString("Full Name"));
+                    }
+                    Log.d("TAG", list.toString());
+                    get_user.setText(list.toString());
+                    Toast.makeText(Employees.this, list.toString(), Toast.LENGTH_SHORT).show();
+                } else {
+                    Log.d("TAG", "Error getting documents: ", task.getException());
+                    Toast.makeText(Employees.this, "Error getting documents", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
         Monthly.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -131,10 +103,6 @@ public class Employees extends AppCompatActivity {
         });
 
 
-
-
-
-        //Add
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
