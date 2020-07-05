@@ -1,8 +1,11 @@
 package com.Creation.App;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -16,14 +19,19 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
@@ -38,8 +46,8 @@ public class Employees extends AppCompatActivity {
     FirebaseFirestore fStore;
     FirebaseAuth fAuth;
     String userId;
-    ListView listView;
-    private List<String> namesList= new ArrayList<>();
+    private RecyclerView mList;
+    private List<Employyes> employyesList;
 
 
     @Override
@@ -47,12 +55,44 @@ public class Employees extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_employees);
         fStore = FirebaseFirestore.getInstance();
+        final EmployerListAdapter employerListAdapter = new EmployerListAdapter(employyesList);
         fAuth = FirebaseAuth.getInstance();
-        userId = fAuth.getCurrentUser().getUid();
+        userId = Objects.requireNonNull(fAuth.getCurrentUser()).getUid();
+        mList = (RecyclerView) findViewById(R.id.recycler_view);
+        mList.setHasFixedSize(true);
+        mList.setAdapter(employerListAdapter);
+        mList.setLayoutManager(new LinearLayoutManager(this));
 
 
 
-//All the Buttons. which intregated in bottom.
+        employyesList = new ArrayList<>();
+
+        fStore.collection("Users Detail/"+userId+"/Employee List").addSnapshotListener(new EventListener<QuerySnapshot>() {
+            private static final String TAG = "FireLog";
+
+            @Override
+            public void onEvent(QuerySnapshot queryDocumentSnapshots, FirebaseFirestoreException e) {
+
+                if(e !=null){
+
+                    Log.d(TAG,"Error"+ e.getMessage());
+                }
+                for(DocumentChange doc: queryDocumentSnapshots.getDocumentChanges()){
+
+                    if(doc.getType() == DocumentChange.Type.MODIFIED){
+                        Employyes employyes = doc.getDocument().toObject(Employyes.class);
+                        employyesList.add(employyes);
+
+                        employerListAdapter.notifyDataSetChanged();
+                    }
+                }
+
+            }
+        });
+
+
+
+        //All the Buttons. which intregated in bottom.
         Button Monthly=findViewById(R.id.btn_monthly);
         Button Annual=findViewById(R.id.btn_annual);
         Button Employee=findViewById(R.id.btn_employees);
@@ -89,23 +129,6 @@ public class Employees extends AppCompatActivity {
                 finish();
             }
         });
-
-        fStore.collection("User Details").document(userId).collection("Employee List")
-                .addSnapshotListener(new EventListener<QuerySnapshot>() {
-                    @Override
-                    public void onEvent( QuerySnapshot queryDocumentSnapshots, FirebaseFirestoreException e) {
-                        namesList.clear();
-                        for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots){
-                            namesList.add(documentSnapshot.getString("Full Name"));
-                        }
-                        ArrayAdapter<String>adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.activity_list_item, namesList);
-                        adapter.notifyDataSetChanged();
-                        listView.setAdapter(adapter);
-                    }
-                });
-
-
-
 
 
 
