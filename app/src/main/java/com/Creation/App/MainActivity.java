@@ -43,12 +43,12 @@ public class MainActivity extends AppCompatActivity {
         FirebaseUser user = fAuth.getCurrentUser();
 
         if(!user.isEmailVerified()) {
-            VerifyEmail.setVisibility(View.VISIBLE);
-            textEmailVerified.setVisibility(View.VISIBLE);
             user.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
                     Toast.makeText(MainActivity.this, "Email Verification Link is Send to your Email.", Toast.LENGTH_SHORT).show();
+
+
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
@@ -56,16 +56,21 @@ public class MainActivity extends AppCompatActivity {
                     Log.d("TAG", "onFailure: Email Verification link is not sent"+ e.getMessage());
                 }
             });
+
+            VerifyEmail.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent=new Intent(getApplicationContext(),Login.class);
+                    startActivity(intent);
+                    finish();
+                }
+            });
+        }
+        else{
+            Intent intent=new Intent(getApplicationContext(),Monthly.class);
+            startActivity(intent);
+            finish();
         }
     }
-    public void LogOut(View view) {
-        FirebaseAuth.getInstance().signOut();
-         new UserSession(MainActivity.this).removeUser();
-        startActivity(new Intent(MainActivity.this,Login.class));
-        finish();
-    }
-    public void ProfileTab(View view) {
-        startActivity(new Intent(getApplicationContext(),ProfileTab.class));
-        finish();
-    }
+
 }
