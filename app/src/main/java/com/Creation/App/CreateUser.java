@@ -77,7 +77,7 @@ public class CreateUser extends AppCompatActivity {
                     mPhone.setError("Phone Number is Required");
                     return;
                 }
-                if (phone.length() >= 11) {
+                if (phone.length()!=10) {
                     mPhone.setError("Phone Number should be equal to 10 character");
                     return;
                 }
