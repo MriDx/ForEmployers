@@ -33,16 +33,18 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-public class Employees extends AppCompatActivity {
+@SuppressWarnings("ALL")
+public class Employees extends AppCompatActivity implements MyRecyclerViewAdapter.OnListItemClick {
     FirebaseAuth fAuth;
 
     FirebaseFirestore fStore;
     String userId;
-
+    TextView employeeRetrive;
     List<String> rf_id, name;
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+    String UserId;
 
 
     @Override
@@ -52,6 +54,7 @@ public class Employees extends AppCompatActivity {
 
         mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
         mRecyclerView.setHasFixedSize(true);
+        employeeRetrive = findViewById(R.id.employee_retrive_name);
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
@@ -143,6 +146,22 @@ public class Employees extends AppCompatActivity {
                                     }
                                 });
 
+
+
+                                DocumentReference documentReference1 = fStore.collection("Users Detail1").document(userId).collection("Employee List").document(rf_id);
+                                Map<String, Object> user1 = new HashMap<>();
+                                user1.put("Full Name", name);
+
+                                documentReference1.set(user1).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        Log.d("TAG", "onSuccess: user Profile is Created for" + userId);
+                                        Toast.makeText(getApplicationContext(), "Id Created for" + name, Toast.LENGTH_SHORT).show();
+                                        work();
+                                    }
+                                });
+
+
                                 /* User clicked OK so do some stuff */
 
                             }
@@ -174,7 +193,7 @@ public class Employees extends AppCompatActivity {
                         rf_id.add(document.getId());
                     }
 
-                    mAdapter = new MyRecyclerViewAdapter(getDataSet());
+                    mAdapter = new MyRecyclerViewAdapter(getDataSet(), Employees.this);
                     mRecyclerView.setAdapter(mAdapter);
                     Log.d("TAG", rf_id.toString());
 
@@ -189,12 +208,37 @@ public class Employees extends AppCompatActivity {
 
     private ArrayList<DataObject> getDataSet() {
         ArrayList results = new ArrayList<DataObject>();
-        DataObject obja = new DataObject("Name", "Rf id", "other", "other");
+        DataObject obja = new DataObject("Name", "Rf id");
         results.add(0, obja);
         for (int index = 0; index < rf_id.size(); index++) {
-            DataObject obj = new DataObject(name.get(index), rf_id.get(index), " ", " ");
+            DataObject obj = new DataObject(name.get(index), rf_id.get(index));
             results.add(index + 1, obj);
         }
         return results;
+    }
+
+    @Override
+    public void onItemClick(int position) {
+        Log.d("ITEM CLICKED", "Clicked an item: " + position);
+        LayoutInflater factory = LayoutInflater.from(Employees.this);
+        final View textEntryView = factory.inflate(R.layout.activity_employee_retrive, null);
+
+        final AlertDialog.Builder alert = new AlertDialog.Builder(Employees.this);
+        alert.setView(textEntryView).setPositiveButton("Save",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,
+                                        int whichButton) {
+
+                            }
+                        }).setNegativeButton("Cancel",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,
+                                        int whichButton) {
+                    }
+                });
+        alert.show();
+
+
+
     }
 }
