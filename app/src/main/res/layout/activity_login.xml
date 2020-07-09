@@ -21,7 +21,7 @@
         tools:ignore="MissingConstraints" />
 
     <TextView
-        android:id="@+id/textEmail"
+        android:id="@+id/createEmail"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -57,12 +57,12 @@
         app:layout_constraintEnd_toEndOf="@+id/view2"
         app:layout_constraintHorizontal_bias="0.226"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textEmail"
+        app:layout_constraintTop_toBottomOf="@+id/createEmail"
         app:layout_constraintVertical_bias="0.0"
         tools:ignore="Autofill,HardcodedText" />
 
     <TextView
-        android:id="@+id/textPassword"
+        android:id="@+id/createPassword"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -98,7 +98,7 @@
         app:layout_constraintEnd_toEndOf="@+id/view2"
         app:layout_constraintHorizontal_bias="0.226"
         app:layout_constraintStart_toStartOf="@+id/view2"
-        app:layout_constraintTop_toBottomOf="@+id/textPassword"
+        app:layout_constraintTop_toBottomOf="@+id/createPassword"
         app:layout_constraintVertical_bias="0.0"
         tools:ignore="Autofill,HardcodedText" />
 
@@ -181,7 +181,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="4dp"
-        app:layout_constraintBottom_toTopOf="@+id/textEmail"
+        app:layout_constraintBottom_toTopOf="@+id/createEmail"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"

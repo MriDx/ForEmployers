@@ -8,6 +8,23 @@
 
 
     <TextView
+        android:id="@+id/employee_retrive_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/averia_gruesa_libre"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.024"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.021"
+        tools:ignore="HardcodedText" />
+
+    <TextView
         android:id="@+id/createCompanyName"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
@@ -30,37 +47,7 @@
         android:textColor="#000000"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/EditText1"
-        tools:ignore="HardcodedText" />
-
-    <EditText
-        android:id="@+id/EditText1"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:background="@drawable/border_black"
-        android:ems="10"
-        android:fontFamily="@font/aldrich"
-        android:inputType="textPersonName"
-        android:textColor="#000000"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/createCompanyName"
-        tools:ignore="Autofill,LabelFor" />
-
-    <EditText
-        android:id="@+id/EditText2"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:background="@drawable/border_black"
-        android:ems="10"
-        android:fontFamily="@font/aldrich"
-        android:textColor="#000000"
-        android:textColorHint="#E4E4E4"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/createEmail"
-        tools:ignore="Autofill,HardcodedText" />
+        tools:ignore="HardcodedText,MissingConstraints"
+        tools:layout_editor_absoluteY="64dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
