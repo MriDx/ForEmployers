@@ -41,11 +41,11 @@ public class Employees extends AppCompatActivity implements MyRecyclerViewAdapte
     String userId;
     TextView employeeRetrive;
     List<String> rf_id, name;
+    String UserId;
+    String[][] data = new String[2][100];
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-    String UserId;
-    String[] data = new String[100];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -142,10 +142,9 @@ public class Employees extends AppCompatActivity implements MyRecyclerViewAdapte
                                     public void onSuccess(Void aVoid) {
                                         Log.d("TAG", "onSuccess: user Profile is Created for" + userId);
                                         Toast.makeText(getApplicationContext(), "Id Created for" + name, Toast.LENGTH_SHORT).show();
-                               work();
+                                        work();
                                     }
                                 });
-
 
 
                                 DocumentReference documentReference1 = fStore.collection("Users Detail1").document(userId).collection("Employee List").document(rf_id);
@@ -197,7 +196,7 @@ public class Employees extends AppCompatActivity implements MyRecyclerViewAdapte
                     mRecyclerView.setAdapter(mAdapter);
                     Log.d("TAG", rf_id.toString());
 
-                  //  Toast.makeText(Employees.this, rf_id.toString(), Toast.LENGTH_SHORT).show();
+                    //  Toast.makeText(Employees.this, rf_id.toString(), Toast.LENGTH_SHORT).show();
                 } else {
                     Log.d("TAG", "Error getting documents: ", task.getException());
                     Toast.makeText(Employees.this, "Error getting documents", Toast.LENGTH_SHORT).show();
@@ -209,16 +208,12 @@ public class Employees extends AppCompatActivity implements MyRecyclerViewAdapte
     private ArrayList<DataObject> getDataSet() {
         ArrayList results = new ArrayList<DataObject>();
 
-        DataObject obja = new DataObject("Name", "Rf id");
-        results.add(0, obja);
-        data[0] = "Title";
-        data[1] = "nothing";
+
         for (int index = 0; index < rf_id.size(); index++) {
             DataObject obj = new DataObject(name.get(index), rf_id.get(index));
-            results.add(index + 1, obj);
-            data[index + 1] = name.get(index);
-            data[index + 2] = rf_id.get(index);
-
+            results.add(index, obj);
+            data[0][index] = name.get(index);
+            data[1][index] = rf_id.get(index);
         }
         return results;
     }
@@ -226,50 +221,34 @@ public class Employees extends AppCompatActivity implements MyRecyclerViewAdapte
     @Override
     public void onItemClick(int position) {
         Log.d("ITEM CLICKED", "Clicked an item: " + position);
+        //Toast.makeText(this, "Name="+ data[0][position]+","+" RF Id="+data[1][position], Toast.LENGTH_SHORT).show();
 
         LayoutInflater factory = LayoutInflater.from(Employees.this);
-        View detailofEmployee = factory.inflate(R.layout.card_view_row1, null);
-        final TextView output1 = (TextView) detailofEmployee.findViewById(R.id.rfidof);
-        TextView output2 = (TextView) detailofEmployee.findViewById(R.id.nameof);
+        final View textEntryView = factory.inflate(R.layout.activity_employee_retrive, null);
+        EditText textView = (EditText) textEntryView.findViewById(R.id.employee_retrive_name);
+        textView.setText(data[0][position]);
+        EditText textView2 = (EditText) textEntryView.findViewById(R.id.employee_retrive_rfid);
+        textView2.setText(data[1][position]);
 
-        output1.setText(data[position]);
-        output2.setText(data[position]);
 
-        AlertDialog.Builder alert = new AlertDialog.Builder(Employees.this);
-        alert.setView(detailofEmployee).setPositiveButton("Delete", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                Toast.makeText(Employees.this, "You Deleted this item successfully", Toast.LENGTH_SHORT).show();
+        final AlertDialog.Builder alert = new AlertDialog.Builder(Employees.this);
+        alert.setView(textEntryView).setPositiveButton("Save",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,
+                                        int whichButton) {
+                        Toast.makeText(Employees.this, "Profile Updated", Toast.LENGTH_SHORT).show();
 
-            }
-        }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
+                    }
+                }).setNegativeButton("Delete",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,
+                                        int whichButton) {
+                        Toast.makeText(Employees.this, "Profile Deteted", Toast.LENGTH_SHORT).show();
 
-            }
-        });
+                    }
+                });
         alert.show();
 
-
-
-        /**   LayoutInflater factory = LayoutInflater.from(Employees.this);
-         final View textEntryView = factory.inflate(R.layout.activity_employee_retrive, null);
-
-         final AlertDialog.Builder alert = new AlertDialog.Builder(Employees.this);
-         alert.setView(textEntryView).setPositiveButton("Save",
-         new DialogInterface.OnClickListener() {
-         public void onClick(DialogInterface dialog,
-         int whichButton) {
-
-         }
-         }).setNegativeButton("Cancel",
-         new DialogInterface.OnClickListener() {
-         public void onClick(DialogInterface dialog,
-         int whichButton) {
-         }
-         });
-         alert.show();
-         **/
 
     }
 }
