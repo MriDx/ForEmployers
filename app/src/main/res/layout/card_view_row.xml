@@ -41,7 +41,7 @@
 
                 android:layout_marginLeft="2dp"
                 android:layout_toEndOf="@+id/statedis"
-                android:gravity="right"
+                android:gravity="left"
                 android:textColor="#304FFE" />
 
             <TextView
