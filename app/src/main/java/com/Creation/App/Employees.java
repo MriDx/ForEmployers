@@ -45,7 +45,7 @@ public class Employees extends AppCompatActivity implements MyRecyclerViewAdapte
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     String UserId;
-
+    String[] data = new String[100];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -208,11 +208,14 @@ public class Employees extends AppCompatActivity implements MyRecyclerViewAdapte
 
     private ArrayList<DataObject> getDataSet() {
         ArrayList results = new ArrayList<DataObject>();
+
         DataObject obja = new DataObject("Name", "Rf id");
         results.add(0, obja);
+        data[0] = "Title";
         for (int index = 0; index < rf_id.size(); index++) {
             DataObject obj = new DataObject(name.get(index), rf_id.get(index));
             results.add(index + 1, obj);
+            data[index + 1] = name.get(index);
         }
         return results;
     }
@@ -220,25 +223,28 @@ public class Employees extends AppCompatActivity implements MyRecyclerViewAdapte
     @Override
     public void onItemClick(int position) {
         Log.d("ITEM CLICKED", "Clicked an item: " + position);
-        LayoutInflater factory = LayoutInflater.from(Employees.this);
-        final View textEntryView = factory.inflate(R.layout.activity_employee_retrive, null);
 
-        final AlertDialog.Builder alert = new AlertDialog.Builder(Employees.this);
-        alert.setView(textEntryView).setPositiveButton("Save",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog,
-                                        int whichButton) {
-
-                            }
-                        }).setNegativeButton("Cancel",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog,
-                                        int whichButton) {
-                    }
-                });
-        alert.show();
+        Toast.makeText(this, data[position], Toast.LENGTH_SHORT).show();
 
 
+        /**   LayoutInflater factory = LayoutInflater.from(Employees.this);
+         final View textEntryView = factory.inflate(R.layout.activity_employee_retrive, null);
+
+         final AlertDialog.Builder alert = new AlertDialog.Builder(Employees.this);
+         alert.setView(textEntryView).setPositiveButton("Save",
+         new DialogInterface.OnClickListener() {
+         public void onClick(DialogInterface dialog,
+         int whichButton) {
+
+         }
+         }).setNegativeButton("Cancel",
+         new DialogInterface.OnClickListener() {
+         public void onClick(DialogInterface dialog,
+         int whichButton) {
+         }
+         });
+         alert.show();
+         **/
 
     }
 }
