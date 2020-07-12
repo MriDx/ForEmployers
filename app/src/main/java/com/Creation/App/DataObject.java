@@ -22,6 +22,8 @@ package com.Creation.App;
 
 @SuppressWarnings("ALL")
 public class DataObject {
+
+
     private String mText1;
     private String mText2;
 
@@ -46,4 +48,7 @@ public class DataObject {
     public void setmText2(String mText2) {
         this.mText2 = mText2;
     }
+
+
 }
+;

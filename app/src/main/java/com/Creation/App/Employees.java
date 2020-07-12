@@ -212,10 +212,13 @@ public class Employees extends AppCompatActivity implements MyRecyclerViewAdapte
         DataObject obja = new DataObject("Name", "Rf id");
         results.add(0, obja);
         data[0] = "Title";
+        data[1] = "nothing";
         for (int index = 0; index < rf_id.size(); index++) {
             DataObject obj = new DataObject(name.get(index), rf_id.get(index));
             results.add(index + 1, obj);
             data[index + 1] = name.get(index);
+            data[index + 2] = rf_id.get(index);
+
         }
         return results;
     }
@@ -224,7 +227,29 @@ public class Employees extends AppCompatActivity implements MyRecyclerViewAdapte
     public void onItemClick(int position) {
         Log.d("ITEM CLICKED", "Clicked an item: " + position);
 
-        Toast.makeText(this, data[position], Toast.LENGTH_SHORT).show();
+        LayoutInflater factory = LayoutInflater.from(Employees.this);
+        View detailofEmployee = factory.inflate(R.layout.card_view_row1, null);
+        final TextView output1 = (TextView) detailofEmployee.findViewById(R.id.rfidof);
+        TextView output2 = (TextView) detailofEmployee.findViewById(R.id.nameof);
+
+        output1.setText(data[position]);
+        output2.setText(data[position]);
+
+        AlertDialog.Builder alert = new AlertDialog.Builder(Employees.this);
+        alert.setView(detailofEmployee).setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Toast.makeText(Employees.this, "You Deleted this item successfully", Toast.LENGTH_SHORT).show();
+
+            }
+        }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+        alert.show();
+
 
 
         /**   LayoutInflater factory = LayoutInflater.from(Employees.this);
