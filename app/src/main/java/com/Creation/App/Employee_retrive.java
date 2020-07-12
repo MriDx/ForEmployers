@@ -1,10 +1,10 @@
 package com.Creation.App;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.widget.TextView;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
@@ -29,13 +29,14 @@ public class Employee_retrive extends AppCompatActivity {
         fStore = FirebaseFirestore.getInstance();
         UserId = fAuth.getCurrentUser().getUid();
 
+
         DocumentReference documentReference = fStore.collection("Users Detail").document(UserId);
         documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
-                employeeRetrive.setText(documentSnapshot.getString("Full Name"));
-
+                employeeRetrive.setText(documentSnapshot.getString("Company Name"));
             }
+
         });
 
 
