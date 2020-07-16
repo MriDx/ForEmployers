@@ -83,7 +83,7 @@ public class CreateUser extends AppCompatActivity {
                     return;
                 }
                 if (phone.length()!=10) {
-                    mPhone.setError("Phone Number should be equal to 10 character");
+                    mPhone.setError("Phone Number is not valid");
                     return;
                 }
 
@@ -150,7 +150,7 @@ public class CreateUser extends AppCompatActivity {
                                     user.put("Establisment Name", Estblishment);
                                     user.put("Phone Number", phone);
                                     user.put("Email Id", email);
-                                    user.put("GST No.", GSTIN);
+                                    user.put("GST No", GSTIN);
                                     documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void aVoid) {
