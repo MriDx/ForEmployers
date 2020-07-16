@@ -38,10 +38,10 @@ public class Employees extends AppCompatActivity implements MyRecyclerViewAdapte
     FirebaseAuth fAuth;
 
     FirebaseFirestore fStore;
-    String userId;
+    String userId, UAN_id;
     TextView employeeRetrive;
-    List<String> rf_id, name;
-    String UserId;
+    List<String> UAN_i, name, Deg, phone;
+    String UserId, UAN;
     String[][] data = new String[2][100];
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
@@ -68,6 +68,7 @@ public class Employees extends AppCompatActivity implements MyRecyclerViewAdapte
         Button Profile = findViewById(R.id.btn_profile);
 
         userId = Objects.requireNonNull(fAuth.getCurrentUser()).getUid();
+
 
         work();
 
@@ -112,56 +113,53 @@ public class Employees extends AppCompatActivity implements MyRecyclerViewAdapte
             public void onClick(View view) {
 
                 LayoutInflater factory = LayoutInflater.from(Employees.this);
-
-//text_entry is an Layout XML file containing two text field to display in alert dialog
                 final View textEntryView = factory.inflate(R.layout.text_entry, null);
 
-                final EditText input1 = (EditText) textEntryView.findViewById(R.id.EditText1);
-                final EditText input2 = (EditText) textEntryView.findViewById(R.id.EditText2);
+                final EditText inputname = (EditText) textEntryView.findViewById(R.id.Editemplname);
+                final EditText inputUAN = (EditText) textEntryView.findViewById(R.id.EdittUAN);
+                final EditText inputdeg = (EditText) textEntryView.findViewById(R.id.Editempldeg);
+                final EditText inputphone = (EditText) textEntryView.findViewById(R.id.Editemplphone);
 
 
-                input1.setText(" ", TextView.BufferType.EDITABLE);
-                input2.setText(" ", TextView.BufferType.EDITABLE);
+                inputname.setText(" ", TextView.BufferType.EDITABLE);
+                inputUAN.setText(" ", TextView.BufferType.EDITABLE);
+                inputdeg.setText(" ", TextView.BufferType.EDITABLE);
+                inputphone.setText(" ", TextView.BufferType.EDITABLE);
 
                 final AlertDialog.Builder alert = new AlertDialog.Builder(Employees.this);
                 alert.setView(textEntryView).setPositiveButton("Save",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog,
                                                 int whichButton) {
-                                final String name = input1.getText().toString();
-
-                                String rf_id = input2.getText().toString();
+                                final String name = inputname.getText().toString();
+                                String UAN_id = inputUAN.getText().toString();
+                                String Deg = inputdeg.getText().toString();
+                                String phone = inputphone.getText().toString();
 
                                 userId = Objects.requireNonNull(fAuth.getCurrentUser()).getUid();
-                                DocumentReference documentReference = fStore.collection("Users Detail").document(userId).collection("Employee List").document(rf_id);
+                                DocumentReference documentReference = fStore.collection("Users Detail").document(userId).collection("Employee List").document(UAN_id);
                                 Map<String, Object> user = new HashMap<>();
                                 user.put("Full Name", name);
+                                user.put("UAN", UAN_id);
+                                user.put("Desgination", Deg);
+                                user.put("Phone", phone);
 
                                 documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
-                                        Log.d("TAG", "onSuccess: user Profile is Created for" + userId);
-                                        Toast.makeText(getApplicationContext(), "Id Created for" + name, Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getApplicationContext(), name+ " is added.", Toast.LENGTH_SHORT).show();
                                         work();
                                     }
                                 });
 
 
-                                DocumentReference documentReference1 = fStore.collection("Users Detail1").document(userId).collection("Employee List").document(rf_id);
+                                DocumentReference documentReference1 = fStore.collection("Employees List").document(UAN_id);
                                 Map<String, Object> user1 = new HashMap<>();
                                 user1.put("Full Name", name);
-
-                                documentReference1.set(user1).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void aVoid) {
-                                        Log.d("TAG", "onSuccess: user Profile is Created for" + userId);
-                                        Toast.makeText(getApplicationContext(), "Id Created for" + name, Toast.LENGTH_SHORT).show();
-                                        work();
-                                    }
-                                });
-
-
-                                /* User clicked OK so do some stuff */
+                                user1.put("UAN", UAN_id);
+                                user1.put("Desgination", Deg);
+                                user1.put("Phone", phone);
+                                documentReference1.set(user1);
 
                             }
                         }).setNegativeButton("Cancel",
@@ -185,16 +183,21 @@ public class Employees extends AppCompatActivity implements MyRecyclerViewAdapte
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
-                    rf_id = new ArrayList<>();
+                    UAN_i = new ArrayList<>();
                     name = new ArrayList<>();
+                    Deg = new ArrayList<>();
+                    phone = new ArrayList<>();
                     for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
                         name.add(document.getString("Full Name"));
-                        rf_id.add(document.getId());
+                        UAN_i.add(document.getString("UAN"));
+                        Deg.add(document.getString("Desgination"));
+                        phone.add(document.getString("Phone"));
+                        UAN_i.add(document.getId());
                     }
 
                     mAdapter = new MyRecyclerViewAdapter(getDataSet(), Employees.this);
                     mRecyclerView.setAdapter(mAdapter);
-                    Log.d("TAG", rf_id.toString());
+                    Log.d("TAG", UAN_i.toString());
 
                     //  Toast.makeText(Employees.this, rf_id.toString(), Toast.LENGTH_SHORT).show();
                 } else {
@@ -209,11 +212,14 @@ public class Employees extends AppCompatActivity implements MyRecyclerViewAdapte
         ArrayList results = new ArrayList<DataObject>();
 
 
-        for (int index = 0; index < rf_id.size(); index++) {
-            DataObject obj = new DataObject(name.get(index), rf_id.get(index));
-            results.add(index, obj);
+        for (int index = 0; index < UAN_i.size(); index++) {
+            DataObject obj1 = new DataObject(name.get(index), UAN_i.get(index),Deg.get(index),phone.get(index));
+            results.add(index, obj1);
             data[0][index] = name.get(index);
-            data[1][index] = rf_id.get(index);
+            data[1][index] = UAN_i.get(index);
+            //Here the error is showing that this line is not valid.
+            data[2][index] = Deg.get(index);
+            data[3][index] = phone.get(index);
         }
         return results;
     }
@@ -223,21 +229,23 @@ public class Employees extends AppCompatActivity implements MyRecyclerViewAdapte
         Log.d("ITEM CLICKED", "Clicked an item: " + position);
         //Toast.makeText(this, "Name="+ data[0][position]+","+" RF Id="+data[1][position], Toast.LENGTH_SHORT).show();
 
-        LayoutInflater factory = LayoutInflater.from(Employees.this);
+        final LayoutInflater factory = LayoutInflater.from(Employees.this);
         final View textEntryView = factory.inflate(R.layout.activity_employee_retrive, null);
         EditText textView = (EditText) textEntryView.findViewById(R.id.employee_retrive_name);
         textView.setText(data[0][position]);
-        EditText textView2 = (EditText) textEntryView.findViewById(R.id.employee_retrive_rfid);
+        EditText textView2 = (EditText) textEntryView.findViewById(R.id.employee_retrive_UAN);
         textView2.setText(data[1][position]);
-
+        EditText textView3 = (EditText) textEntryView.findViewById(R.id.employee_retrive_Deg);
+        textView3.setText(data[2][position]);
+        EditText textView4 = (EditText) textEntryView.findViewById(R.id.employee_retrive_phone);
+        textView4.setText(data[3][position]);
 
         final AlertDialog.Builder alert = new AlertDialog.Builder(Employees.this);
-        alert.setView(textEntryView).setPositiveButton("Save",
+        alert.setView(textEntryView).setPositiveButton("Delete",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog,
                                         int whichButton) {
-                        Toast.makeText(Employees.this, "Profile Updated", Toast.LENGTH_SHORT).show();
-
+                        Toast.makeText(Employees.this, "Employee is Deleted", Toast.LENGTH_SHORT).show();
                     }
                 }).setNegativeButton("Delete",
                 new DialogInterface.OnClickListener() {

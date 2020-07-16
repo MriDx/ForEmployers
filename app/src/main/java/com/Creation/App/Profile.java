@@ -1,10 +1,5 @@
 package com.Creation.App;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,6 +9,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -26,7 +27,7 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 
 @SuppressWarnings("ConstantConditions")
 public class Profile extends AppCompatActivity {
-    TextView fullName,phone,email,companyName;
+    TextView EstName,gstNum,phone,email;
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
     String UserId;
@@ -85,10 +86,10 @@ public class Profile extends AppCompatActivity {
                 finish();
             }
         });
-        fullName = findViewById(R.id.profileName);
+        EstName = findViewById(R.id.profileESTName);
         phone = findViewById(R.id.profilePhone);
         email =findViewById(R.id.profileEmail);
-        companyName = findViewById(R.id.profileCompanyName);
+        gstNum = findViewById(R.id.profileGSTNum);
         changePassword = findViewById(R.id.changepasswordlocal);
 
 
@@ -98,18 +99,18 @@ public class Profile extends AppCompatActivity {
         UserId = fAuth.getCurrentUser().getUid();
         userv = fAuth.getCurrentUser();
 
-
         DocumentReference documentReference = fStore.collection("Users Detail").document(UserId);
         documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
-                fullName.setText(documentSnapshot.getString("Full Name"));
+                EstName.setText(documentSnapshot.getString("Establisment Name"));
                 phone.setText(documentSnapshot.getString("Phone Number"));
                 email.setText(documentSnapshot.getString("Email Id"));
-                companyName.setText(documentSnapshot.getString("Company Name"));
-
+                gstNum.setText(documentSnapshot.getString("GST No"));
             }
         });
+
+
 
         changePassword.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -144,9 +145,4 @@ public class Profile extends AppCompatActivity {
             }
         });
     }
-
-
-
-
-
 }
