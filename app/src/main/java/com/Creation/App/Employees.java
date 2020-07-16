@@ -42,7 +42,7 @@ public class Employees extends AppCompatActivity implements MyRecyclerViewAdapte
     TextView employeeRetrive;
     List<String> UAN_i, name, Deg, phone;
     String UserId, UAN;
-    String[][] data = new String[2][100];
+    String[][] data = new String[4][100];
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
@@ -212,8 +212,8 @@ public class Employees extends AppCompatActivity implements MyRecyclerViewAdapte
         ArrayList results = new ArrayList<DataObject>();
 
 
-        for (int index = 0; index < UAN_i.size(); index++) {
-            DataObject obj1 = new DataObject(name.get(index), UAN_i.get(index),Deg.get(index),phone.get(index));
+        for (int index = 0; index < name.size(); index++) {
+            DataObject obj1 = new DataObject(name.get(index), UAN_i.get(index));
             results.add(index, obj1);
             data[0][index] = name.get(index);
             data[1][index] = UAN_i.get(index);
