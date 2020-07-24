@@ -4,16 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F3EFDE">
+    android:background="#C5FBAF">
 
 
     <TextView
         android:id="@+id/emplentryName"
-        android:layout_width="250dp"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:fontFamily="@font/aldrich"
-        android:text="Full Name"
+        android:text="Full Name *"
         android:textColor="#000000"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,11 +22,11 @@
 
     <TextView
         android:id="@+id/emplUAN"
-        android:layout_width="250dp"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:fontFamily="@font/aldrich"
-        android:text="Employee UAN No."
+        android:text="Employee UAN No.  *"
         android:textColor="#000000"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -35,8 +35,8 @@
 
     <EditText
         android:id="@+id/Editemplname"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
+        android:layout_width="300dp"
+        android:layout_height="30dp"
         android:layout_marginStart="8dp"
         android:background="@drawable/border_black"
         android:ems="10"
@@ -50,13 +50,13 @@
 
     <EditText
         android:id="@+id/EdittUAN"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
+        android:layout_width="300dp"
+        android:layout_height="30dp"
         android:layout_marginStart="8dp"
         android:background="@drawable/border_black"
         android:ems="10"
-        android:inputType="number"
         android:fontFamily="@font/aldrich"
+        android:inputType="number"
         android:textColor="#000000"
         android:textColorHint="#E4E4E4"
         android:textSize="16sp"
@@ -66,11 +66,11 @@
 
     <TextView
         android:id="@+id/empldeg"
-        android:layout_width="250dp"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:fontFamily="@font/aldrich"
-        android:text="Designation"
+        android:text="Designation  *"
         android:textColor="#000000"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -79,8 +79,8 @@
 
     <EditText
         android:id="@+id/Editempldeg"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
+        android:layout_width="300dp"
+        android:layout_height="30dp"
         android:layout_marginStart="8dp"
         android:background="@drawable/border_black"
         android:ems="10"
@@ -94,7 +94,7 @@
 
     <TextView
         android:id="@+id/emplPhone"
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:fontFamily="@font/aldrich"
@@ -107,12 +107,13 @@
 
     <EditText
         android:id="@+id/Editemplphone"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
+        android:layout_width="300dp"
+        android:layout_height="30dp"
         android:layout_marginStart="8dp"
         android:background="@drawable/border_black"
         android:ems="10"
         android:fontFamily="@font/aldrich"
+        android:hint="Optional"
         android:inputType="phone"
         android:textColor="#000000"
         android:textSize="16sp"

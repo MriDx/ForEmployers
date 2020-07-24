@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">For Employers</string>
+
+    <string-array name="Desginations">
+        <item>Helper</item>
+        <item>Supervisor</item>
+        <item>Rigger</item>
+        <item>W/G</item>
+        <item>Other</item>
+    </string-array>
+
 </resources>
