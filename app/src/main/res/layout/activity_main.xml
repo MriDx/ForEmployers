@@ -36,18 +36,21 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="HardcodedText" />
 
-    <Button
-        android:id="@+id/employeeBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="216dp"
-        android:layout_marginBottom="2dp"
-        android:text="Employee List"
-        android:onClick="employeeBtn"
-        app:layout_constraintBottom_toTopOf="@+id/profileBtn"
+    <TextView
+        android:id="@+id/showInfoEmailVerified"
+        android:layout_width="357dp"
+        android:layout_height="114dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:fontFamily="@font/aldrich"
+        android:text="To Verify Your Email ID go on the Email and Check there is a Email. Please Click on the Verify"
+        android:textColor="#000000"
+        android:textSize="19sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/verifyEmail"
         tools:ignore="HardcodedText" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

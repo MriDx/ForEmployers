@@ -51,8 +51,8 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
 
         public DataObjectHolder(View itemView) {
             super(itemView);
-            state = (TextView) itemView.findViewById(R.id.statedis);
-            total = (TextView) itemView.findViewById(R.id.totalcountdis);
+            state = (TextView) itemView.findViewById(R.id.nameret);
+            total = (TextView) itemView.findViewById(R.id.UANid);
 
             itemView.setOnClickListener(this);
         }

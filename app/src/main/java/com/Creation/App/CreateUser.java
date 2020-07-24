@@ -99,6 +99,7 @@ public class CreateUser extends AppCompatActivity {
 
                 if (TextUtils.isEmpty(GSTIN)){
                     mGstNo.setError("GSTIN Number is Required");
+                    return;
                 }
 
                 progressBar.setVisibility(View.VISIBLE);

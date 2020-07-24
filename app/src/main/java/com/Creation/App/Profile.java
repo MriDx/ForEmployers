@@ -42,7 +42,7 @@ public class Profile extends AppCompatActivity {
         Button Monthly=findViewById(R.id.btn_monthly);
         Button Annual=findViewById(R.id.btn_annual);
         Button Employee=findViewById(R.id.btn_employees);
-        Button Profile=findViewById(R.id.btn_profile);
+       // Button Profile=findViewById(R.id.btn_profile);
         Button logout=findViewById(R.id.LogoutBtn);
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,14 +78,7 @@ public class Profile extends AppCompatActivity {
                 finish();
             }
         });
-        Profile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent=new Intent(getApplicationContext(),Profile.class);
-                startActivity(intent);
-                finish();
-            }
-        });
+
         EstName = findViewById(R.id.profileESTName);
         phone = findViewById(R.id.profilePhone);
         email =findViewById(R.id.profileEmail);

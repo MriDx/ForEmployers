@@ -3,6 +3,7 @@ package com.Creation.App;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -59,15 +60,20 @@ public class Employees extends AppCompatActivity implements MyRecyclerViewAdapte
         mRecyclerView.setLayoutManager(mLayoutManager);
 
 
+
+
         fAuth = FirebaseAuth.getInstance();
 
         fStore = FirebaseFirestore.getInstance();
+
         Button Monthly = findViewById(R.id.btn_monthly);
         Button Annual = findViewById(R.id.btn_annual);
-        Button Employee = findViewById(R.id.btn_employees);
+
         Button Profile = findViewById(R.id.btn_profile);
 
         userId = Objects.requireNonNull(fAuth.getCurrentUser()).getUid();
+
+
 
 
         work();
@@ -89,14 +95,7 @@ public class Employees extends AppCompatActivity implements MyRecyclerViewAdapte
                 finish();
             }
         });
-        Employee.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), Employees.class);
-                startActivity(intent);
-                finish();
-            }
-        });
+
         Profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -112,29 +111,42 @@ public class Employees extends AppCompatActivity implements MyRecyclerViewAdapte
             @Override
             public void onClick(View view) {
 
+
                 LayoutInflater factory = LayoutInflater.from(Employees.this);
                 final View textEntryView = factory.inflate(R.layout.text_entry, null);
+
+
 
                 final EditText inputname = (EditText) textEntryView.findViewById(R.id.Editemplname);
                 final EditText inputUAN = (EditText) textEntryView.findViewById(R.id.EdittUAN);
                 final EditText inputdeg = (EditText) textEntryView.findViewById(R.id.Editempldeg);
                 final EditText inputphone = (EditText) textEntryView.findViewById(R.id.Editemplphone);
 
-
                 inputname.setText(" ", TextView.BufferType.EDITABLE);
                 inputUAN.setText(" ", TextView.BufferType.EDITABLE);
                 inputdeg.setText(" ", TextView.BufferType.EDITABLE);
                 inputphone.setText(" ", TextView.BufferType.EDITABLE);
+
+
+
+
+
 
                 final AlertDialog.Builder alert = new AlertDialog.Builder(Employees.this);
                 alert.setView(textEntryView).setPositiveButton("Save",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog,
                                                 int whichButton) {
-                                final String name = inputname.getText().toString();
+                                final String name = inputname.getText().toString().trim();
                                 String UAN_id = inputUAN.getText().toString();
                                 String Deg = inputdeg.getText().toString();
                                 String phone = inputphone.getText().toString();
+
+                                if (TextUtils.isEmpty(name)){
+                                    inputname.setError("Mandatory");
+                                    return;
+                                }
+
 
                                 userId = Objects.requireNonNull(fAuth.getCurrentUser()).getUid();
                                 DocumentReference documentReference = fStore.collection("Users Detail").document(userId).collection("Employee List").document(UAN_id);
@@ -166,9 +178,7 @@ public class Employees extends AppCompatActivity implements MyRecyclerViewAdapte
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog,
                                                 int whichButton) {
-                                /*
-                                 * User clicked cancel so do some stuff
-                                 */
+
                             }
                         });
                 alert.show();
@@ -231,13 +241,13 @@ public class Employees extends AppCompatActivity implements MyRecyclerViewAdapte
 
         final LayoutInflater factory = LayoutInflater.from(Employees.this);
         final View textEntryView = factory.inflate(R.layout.activity_employee_retrive, null);
-        EditText textView = (EditText) textEntryView.findViewById(R.id.employee_retrive_name);
+        TextView textView = (TextView) textEntryView.findViewById(R.id.employee_retrive_name);
         textView.setText(data[0][position]);
-        EditText textView2 = (EditText) textEntryView.findViewById(R.id.employee_retrive_UAN);
+        TextView textView2 = (TextView) textEntryView.findViewById(R.id.employee_retrive_UAN);
         textView2.setText(data[1][position]);
-        EditText textView3 = (EditText) textEntryView.findViewById(R.id.employee_retrive_Deg);
+        TextView textView3 = (TextView) textEntryView.findViewById(R.id.employee_retrive_Deg);
         textView3.setText(data[2][position]);
-        EditText textView4 = (EditText) textEntryView.findViewById(R.id.employee_retrive_phone);
+        TextView textView4 = (TextView) textEntryView.findViewById(R.id.employee_retrive_phone);
         textView4.setText(data[3][position]);
 
         final AlertDialog.Builder alert = new AlertDialog.Builder(Employees.this);
@@ -245,7 +255,14 @@ public class Employees extends AppCompatActivity implements MyRecyclerViewAdapte
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog,
                                         int whichButton) {
-                        Toast.makeText(Employees.this, "Employee is Deleted", Toast.LENGTH_SHORT).show();
+
+                        Task<Void> documentReference = fStore.collection("Employees List").document("789").delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Toast.makeText(Employees.this, "Your Data is successfull Delete", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
                     }
                 }).setNegativeButton("Delete",
                 new DialogInterface.OnClickListener() {
