@@ -7,8 +7,10 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -60,8 +62,6 @@ public class Employees extends AppCompatActivity implements MyRecyclerViewAdapte
         mRecyclerView.setLayoutManager(mLayoutManager);
 
 
-
-
         fAuth = FirebaseAuth.getInstance();
 
         fStore = FirebaseFirestore.getInstance();
@@ -72,8 +72,6 @@ public class Employees extends AppCompatActivity implements MyRecyclerViewAdapte
         Button Profile = findViewById(R.id.btn_profile);
 
         userId = Objects.requireNonNull(fAuth.getCurrentUser()).getUid();
-
-
 
 
         work();
@@ -116,33 +114,29 @@ public class Employees extends AppCompatActivity implements MyRecyclerViewAdapte
                 final View textEntryView = factory.inflate(R.layout.text_entry, null);
 
 
-
                 final EditText inputname = (EditText) textEntryView.findViewById(R.id.Editemplname);
                 final EditText inputUAN = (EditText) textEntryView.findViewById(R.id.EdittUAN);
                 final EditText inputdeg = (EditText) textEntryView.findViewById(R.id.Editempldeg);
                 final EditText inputphone = (EditText) textEntryView.findViewById(R.id.Editemplphone);
-
-                inputname.setText(" ", TextView.BufferType.EDITABLE);
-                inputUAN.setText(" ", TextView.BufferType.EDITABLE);
-                inputdeg.setText(" ", TextView.BufferType.EDITABLE);
-                inputphone.setText(" ", TextView.BufferType.EDITABLE);
+                final Spinner mySpinner = (Spinner) textEntryView.findViewById(R.id.spinner);
 
 
-
-
-
+                ArrayAdapter<String> myAdapter = new ArrayAdapter<String>(Employees.this,
+                        android.R.layout.simple_expandable_list_item_1, getResources().getStringArray(R.array.Desginations));
+                myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                mySpinner.setAdapter(myAdapter);
 
                 final AlertDialog.Builder alert = new AlertDialog.Builder(Employees.this);
                 alert.setView(textEntryView).setPositiveButton("Save",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog,
                                                 int whichButton) {
-                                final String name = inputname.getText().toString().trim();
+                                String name = inputname.getText().toString().trim();
                                 String UAN_id = inputUAN.getText().toString();
                                 String Deg = inputdeg.getText().toString();
                                 String phone = inputphone.getText().toString();
 
-                                if (TextUtils.isEmpty(name)){
+                                if (TextUtils.isEmpty(name)) {
                                     inputname.setError("Mandatory");
                                     return;
                                 }
@@ -156,10 +150,11 @@ public class Employees extends AppCompatActivity implements MyRecyclerViewAdapte
                                 user.put("Desgination", Deg);
                                 user.put("Phone", phone);
 
+                                final String finalName = name;
                                 documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
-                                        Toast.makeText(getApplicationContext(), name+ " is added.", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getApplicationContext(), finalName + " is added.", Toast.LENGTH_SHORT).show();
                                         work();
                                     }
                                 });
@@ -172,6 +167,8 @@ public class Employees extends AppCompatActivity implements MyRecyclerViewAdapte
                                 user1.put("Desgination", Deg);
                                 user1.put("Phone", phone);
                                 documentReference1.set(user1);
+                                name = null;
+                                UAN_id = null;
 
                             }
                         }).setNegativeButton("Cancel",
@@ -202,7 +199,7 @@ public class Employees extends AppCompatActivity implements MyRecyclerViewAdapte
                         UAN_i.add(document.getString("UAN"));
                         Deg.add(document.getString("Desgination"));
                         phone.add(document.getString("Phone"));
-                        UAN_i.add(document.getId());
+
                     }
 
                     mAdapter = new MyRecyclerViewAdapter(getDataSet(), Employees.this);
@@ -261,7 +258,7 @@ public class Employees extends AppCompatActivity implements MyRecyclerViewAdapte
                             public void onSuccess(Void aVoid) {
 
                                 Toast.makeText(Employees.this, "Your Data is successfull Delete", Toast.LENGTH_SHORT).show();
-
+                                work();
                             }
                         });
 
