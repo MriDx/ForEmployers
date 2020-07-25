@@ -259,7 +259,7 @@ public class Employees extends AppCompatActivity implements MyRecyclerViewAdapte
                         Task<Void> documentReference = fStore.collection("Users Detail/" + userId + "/Employee List").document(data[1][position]).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
-                                Toast.makeText(Employees.this, " ", Toast.LENGTH_SHORT).show();
+
                                 Toast.makeText(Employees.this, "Your Data is successfull Delete", Toast.LENGTH_SHORT).show();
 
                             }
