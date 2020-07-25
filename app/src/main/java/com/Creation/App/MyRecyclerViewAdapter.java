@@ -53,7 +53,6 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
             super(itemView);
             state = (TextView) itemView.findViewById(R.id.nameret);
             total = (TextView) itemView.findViewById(R.id.UANid);
-
             itemView.setOnClickListener(this);
         }
 

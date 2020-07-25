@@ -202,7 +202,6 @@ public class Employees extends AppCompatActivity implements MyRecyclerViewAdapte
                         UAN_i.add(document.getString("UAN"));
                         Deg.add(document.getString("Desgination"));
                         phone.add(document.getString("Phone"));
-                        UAN_i.add(document.getId());
                     }
 
                     mAdapter = new MyRecyclerViewAdapter(getDataSet(), Employees.this);
@@ -264,9 +263,10 @@ public class Employees extends AppCompatActivity implements MyRecyclerViewAdapte
 
                             }
                         });
+                        work();
 
                     }
-                }).setNegativeButton("Del",
+                }).setNegativeButton("Cancel",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog,
                                         int whichButton) {
