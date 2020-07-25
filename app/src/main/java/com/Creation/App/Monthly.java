@@ -65,7 +65,6 @@ public class Monthly extends AppCompatActivity {
 
                     Toast.makeText(Monthly.this, "Seleceted the Desgination " + item, Toast.LENGTH_SHORT).show();
 
-
                 }
 
             }
