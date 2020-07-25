@@ -119,7 +119,9 @@ public class Employees extends AppCompatActivity implements MyRecyclerViewAdapte
                 final EditText inputdeg = (EditText) textEntryView.findViewById(R.id.Editempldeg);
                 final EditText inputphone = (EditText) textEntryView.findViewById(R.id.Editemplphone);
                 final Spinner mySpinner = (Spinner) textEntryView.findViewById(R.id.spinner);
+                Button btn_save=(Button)textEntryView.findViewById(R.id.btn_save);
 
+                inputname.setText(null);
 
                 ArrayAdapter<String> myAdapter = new ArrayAdapter<String>(Employees.this,
                         android.R.layout.simple_expandable_list_item_1, getResources().getStringArray(R.array.Desginations));
@@ -127,58 +129,127 @@ public class Employees extends AppCompatActivity implements MyRecyclerViewAdapte
                 mySpinner.setAdapter(myAdapter);
 
                 final AlertDialog.Builder alert = new AlertDialog.Builder(Employees.this);
-                alert.setView(textEntryView).setPositiveButton("Save",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog,
-                                                int whichButton) {
-                                String name = inputname.getText().toString().trim();
-                                String UAN_id = inputUAN.getText().toString();
-                                String Deg = inputdeg.getText().toString();
-                                String phone = inputphone.getText().toString();
 
-                                if (TextUtils.isEmpty(name)) {
-                                    inputname.setError("Mandatory");
-                                    return;
-                                }
+                alert.setView(textEntryView);
+                final AlertDialog testDialog = alert.create();
+                testDialog.show();
+                btn_save.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        String name = inputname.getText().toString().trim();
+                        String UAN_id = inputUAN.getText().toString();
+                        String Deg = inputdeg.getText().toString();
+                        String phone = inputphone.getText().toString();
+                        //Toast.makeText(Employees.this, name, Toast.LENGTH_SHORT).show();
+                        if (TextUtils.isEmpty(name)) {
+                            inputname.setError("Mandatory");
+
+                        }
+                       else  if (TextUtils.isEmpty(UAN_id)) {
+                            inputUAN.setError("Mandatory");
+                        }
+                        else  if (TextUtils.isEmpty(inputdeg.getText().toString().trim())) {
+                            inputdeg.setError("Mandatory");
+                        }
+                        else{
+                         //   Toast.makeText(Employees.this, "Done", Toast.LENGTH_SHORT).show();
+
+                                            userId = Objects.requireNonNull(fAuth.getCurrentUser()).getUid();
+                                            DocumentReference documentReference = fStore.collection("Users Detail").document(userId).collection("Employee List").document(UAN_id);
+                                            Map<String, Object> user = new HashMap<>();
+                                            user.put("Full Name", name);
+                                            user.put("UAN", UAN_id);
+                                            user.put("Desgination", Deg);
+                                            user.put("Phone", phone);
+
+                                            final String finalName = name;
+                                            documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void aVoid) {
+                                                    Toast.makeText(getApplicationContext(), finalName + " is added.", Toast.LENGTH_SHORT).show();
+                                                    work();
+
+                                                }
+                                            });
 
 
-                                userId = Objects.requireNonNull(fAuth.getCurrentUser()).getUid();
-                                DocumentReference documentReference = fStore.collection("Users Detail").document(userId).collection("Employee List").document(UAN_id);
-                                Map<String, Object> user = new HashMap<>();
-                                user.put("Full Name", name);
-                                user.put("UAN", UAN_id);
-                                user.put("Desgination", Deg);
-                                user.put("Phone", phone);
+                                            DocumentReference documentReference1 = fStore.collection("Employees List").document(UAN_id);
+                                            Map<String, Object> user1 = new HashMap<>();
+                                            user1.put("Full Name", name);
+                                            user1.put("UAN", UAN_id);
+                                            user1.put("Desgination", Deg);
+                                            user1.put("Phone", phone);
+                                            documentReference1.set(user1);
 
-                                final String finalName = name;
-                                documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void aVoid) {
-                                        Toast.makeText(getApplicationContext(), finalName + " is added.", Toast.LENGTH_SHORT).show();
-                                        work();
-                                    }
-                                });
+                            testDialog.dismiss();
+                                        }
 
 
-                                DocumentReference documentReference1 = fStore.collection("Employees List").document(UAN_id);
-                                Map<String, Object> user1 = new HashMap<>();
-                                user1.put("Full Name", name);
-                                user1.put("UAN", UAN_id);
-                                user1.put("Desgination", Deg);
-                                user1.put("Phone", phone);
-                                documentReference1.set(user1);
-                                name = null;
-                                UAN_id = null;
+                        }
 
-                            }
-                        }).setNegativeButton("Cancel",
+
+                });
+
+
+                /**
+                .setNegativeButton("Cancel",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog,
                                                 int whichButton) {
 
                             }
                         });
-                alert.show();
+
+                if (TextUtils.isEmpty(inputname.getText().toString().trim())) {
+                    inputname.setError("Mandatory");
+
+
+                    alert.setPositiveButton("Save",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog,
+                                                    int whichButton) {
+
+                                    String name = inputname.getText().toString().trim();
+                                    String UAN_id = inputUAN.getText().toString();
+                                    String Deg = inputdeg.getText().toString();
+                                    String phone = inputphone.getText().toString();
+
+
+                                    userId = Objects.requireNonNull(fAuth.getCurrentUser()).getUid();
+                                    DocumentReference documentReference = fStore.collection("Users Detail").document(userId).collection("Employee List").document(UAN_id);
+                                    Map<String, Object> user = new HashMap<>();
+                                    user.put("Full Name", name);
+                                    user.put("UAN", UAN_id);
+                                    user.put("Desgination", Deg);
+                                    user.put("Phone", phone);
+
+                                    final String finalName = name;
+                                    documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            Toast.makeText(getApplicationContext(), finalName + " is added.", Toast.LENGTH_SHORT).show();
+                                            work();
+
+                                        }
+                                    });
+
+
+                                    DocumentReference documentReference1 = fStore.collection("Employees List").document(UAN_id);
+                                    Map<String, Object> user1 = new HashMap<>();
+                                    user1.put("Full Name", name);
+                                    user1.put("UAN", UAN_id);
+                                    user1.put("Desgination", Deg);
+                                    user1.put("Phone", phone);
+                                    documentReference1.set(user1);
+
+                                }
+
+                            });
+
+                }
+                **/
+
+
             }
         });
 
