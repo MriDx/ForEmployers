@@ -3,6 +3,7 @@ package com.Creation.App;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -141,6 +142,10 @@ public class Employees extends AppCompatActivity implements MyRecyclerViewAdapte
                                 String Deg = inputdeg.getText().toString();
                                 String phone = inputphone.getText().toString();
 
+                                if (TextUtils.isEmpty(name)){
+                                    inputname.setError("Mandatory");
+                                    return;
+                                }
 
 
                                 userId = Objects.requireNonNull(fAuth.getCurrentUser()).getUid();
@@ -230,7 +235,7 @@ public class Employees extends AppCompatActivity implements MyRecyclerViewAdapte
     }
 
     @Override
-    public void onItemClick(int position) {
+    public void onItemClick(final int position) {
         Log.d("ITEM CLICKED", "Clicked an item: " + position);
         //Toast.makeText(this, "Name="+ data[0][position]+","+" RF Id="+data[1][position], Toast.LENGTH_SHORT).show();
 
@@ -238,7 +243,7 @@ public class Employees extends AppCompatActivity implements MyRecyclerViewAdapte
         final View textEntryView = factory.inflate(R.layout.activity_employee_retrive, null);
         TextView textView = (TextView) textEntryView.findViewById(R.id.employee_retrive_name);
         textView.setText(data[0][position]);
-        TextView textView2 = (TextView) textEntryView.findViewById(R.id.employee_retrive_UAN);
+        final TextView textView2 = (TextView) textEntryView.findViewById(R.id.employee_retrive_UAN);
         textView2.setText(data[1][position]);
         TextView textView3 = (TextView) textEntryView.findViewById(R.id.employee_retrive_Deg);
         textView3.setText(data[2][position]);
@@ -251,15 +256,16 @@ public class Employees extends AppCompatActivity implements MyRecyclerViewAdapte
                     public void onClick(DialogInterface dialog,
                                         int whichButton) {
 
-                        Task<Void> documentReference = fStore.collection("Employees List").document(String.valueOf(UAN_i)).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                        Task<Void> documentReference = fStore.collection("Users Detail/" + userId + "/Employee List").document(data[1][position]).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
                                 Toast.makeText(Employees.this, "Your Data is successfull Delete", Toast.LENGTH_SHORT).show();
+
                             }
                         });
 
                     }
-                }).setNegativeButton("Cancel",
+                }).setNegativeButton("Del",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog,
                                         int whichButton) {
