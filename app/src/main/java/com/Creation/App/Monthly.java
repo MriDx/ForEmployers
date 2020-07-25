@@ -31,7 +31,9 @@ public class Monthly extends AppCompatActivity {
         fStore = FirebaseFirestore.getInstance();
 
 
-        Spinner mySpinner = (Spinner) findViewById(R.id.spinner);
+        Button select = findViewById(R.id.button);
+
+        final Spinner mySpinner = (Spinner) findViewById(R.id.spinner);
 
         List<String> Categories = new ArrayList<>();
         Categories.add(0, "Choose Desgination");
@@ -75,7 +77,14 @@ public class Monthly extends AppCompatActivity {
                 /* TODO Auto-generated method sub */
 
             }
+
+            //Just Checking
         });
+
+
+
+
+
 
 
 
