@@ -3,14 +3,19 @@ package com.Creation.App;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @SuppressWarnings("ALL")
 public class Monthly extends AppCompatActivity {
@@ -28,12 +33,50 @@ public class Monthly extends AppCompatActivity {
 
         Spinner mySpinner = (Spinner) findViewById(R.id.spinner);
 
-            ArrayAdapter<String> myAdapter = new ArrayAdapter<String>(Monthly.this,
-                    android.R.layout.simple_expandable_list_item_1, getResources().getStringArray(R.array.Desginations));
-            myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            mySpinner.setAdapter(myAdapter);
+        List<String> Categories = new ArrayList<>();
+        Categories.add(0, "Choose Desgination");
+        Categories.add("Helper");
+        Categories.add("Supervisor");
+        Categories.add("Rigger");
+        Categories.add("W / G");
+        Categories.add("Other");
+
+        //Style and populate  the spinner
+        ArrayAdapter<String> dataAdapter;
+        dataAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, Categories);
+
+        //DropDown layout Style
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        //attaching the data adapter to spinneer
+        mySpinner.setAdapter(dataAdapter);
+
+        mySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                if ( adapterView.getItemAtPosition(i).equals("Choose Designation")){
+                    // do nothing
+                }else {
+                    //on selecting a spinner item
+                    String item = adapterView.getItemAtPosition(i).toString();
+
+                    //show selected spinner item
+
+                    Toast.makeText(Monthly.this, "Seleceted the Desgination " + item, Toast.LENGTH_SHORT).show();
 
 
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+                /* TODO Auto-generated method sub */
+
+            }
+        });
 
 
 
