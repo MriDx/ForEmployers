@@ -8,19 +8,6 @@
     tools:context=".Monthly">
 
 
-    <Spinner
-        android:id="@+id/spinner"
-        android:layout_width="300dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="140dp"
-        app:layout_constraintBottom_toTopOf="@+id/button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Editemplphone"
-        app:layout_constraintVertical_bias="0.0" />
-
     <LinearLayout
         android:id="@+id/linearLayout2"
         android:layout_width="0dp"
@@ -79,20 +66,20 @@
             android:textSize="14sp" />
     </LinearLayout>
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/my_recycler_view"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+
+
         android:layout_marginBottom="16dp"
-        android:text="Button"
+        android:background="@android:color/transparent"
+        android:paddingBottom="16dp"
+        android:scrollbars="vertical"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.52"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.6" />
+        app:layout_constraintTop_toTopOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

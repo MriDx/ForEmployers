@@ -147,6 +147,7 @@ public class Employees extends AppCompatActivity implements MyRecyclerViewAdapte
                         }
                        else  if (TextUtils.isEmpty(UAN_id)) {
                             inputUAN.setError("Mandatory");
+
                         }
                        else if (UAN_id.length()!= 12){
                            inputUAN.setError("UAN_ID will be 12 letter");
