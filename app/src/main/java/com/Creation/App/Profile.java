@@ -3,6 +3,7 @@ package com.Creation.App;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.ContextThemeWrapper;
 import android.view.View;
 import android.widget.Button;
@@ -25,7 +26,7 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 
-@SuppressWarnings("ConstantConditions")
+@SuppressWarnings("ALL")
 public class Profile extends AppCompatActivity {
     TextView EstName,gstNum,phone,email;
     FirebaseAuth fAuth;
@@ -50,7 +51,8 @@ public class Profile extends AppCompatActivity {
 
                 FirebaseAuth.getInstance().signOut();
                 new UserSession(Profile.this).removeUser();
-                startActivity(new Intent(Profile.this,Login.class));
+                Intent intent = new Intent(getApplicationContext(),Login.class);
+                startActivity(intent);
                 finish();
             }
         });
@@ -96,10 +98,15 @@ public class Profile extends AppCompatActivity {
         documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
-                EstName.setText(documentSnapshot.getString("Establisment Name"));
-                phone.setText(documentSnapshot.getString("Phone Number"));
-                email.setText(documentSnapshot.getString("Email Id"));
-                gstNum.setText(documentSnapshot.getString("GST No"));
+                if (e != null){
+                    Log.d("TAG", "Null");
+                }else{
+                    EstName.setText(documentSnapshot.getString("Establisment Name"));
+                    phone.setText(documentSnapshot.getString("Phone Number"));
+                    email.setText(documentSnapshot.getString("Email Id"));
+                    gstNum.setText(documentSnapshot.getString("GST No"));
+                }
+
             }
         });
 

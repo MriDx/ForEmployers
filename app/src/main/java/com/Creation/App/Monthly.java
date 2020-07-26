@@ -189,13 +189,16 @@ public class Monthly extends AppCompatActivity {
                                 .document(userId).collection("Attendance Record").document(date_data.get(0).toString()).addSnapshotListener(new EventListener<DocumentSnapshot>() {
                             @Override
                             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                                if (error != null){
 
-                                if (value.getString(id) != null) {
-                                    d1.add(value.getString(id));
-                                    //  Toast.makeText(Monthly.this, id+" "+value.getString(id), Toast.LENGTH_SHORT).show();
-                                } else {
-                                    d1.add(" ");
-                                    //Toast.makeText(Monthly.this, "Not Pres"+value.getString(id), Toast.LENGTH_SHORT).show();
+                                }else{
+                                    if (value.getString(id) != null) {
+                                        d1.add(value.getString(id));
+                                        //  Toast.makeText(Monthly.this, id+" "+value.getString(id), Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        d1.add(" ");
+                                        //Toast.makeText(Monthly.this, "Not Pres"+value.getString(id), Toast.LENGTH_SHORT).show();
+                                    }
                                 }
 
                             }
@@ -206,12 +209,17 @@ public class Monthly extends AppCompatActivity {
                             @Override
                             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
 
-                                if (value.getString(id) != null) {
-                                    d1.add(value.getString(id));
-                                    //  Toast.makeText(Monthly.this, id+" "+value.getString(id), Toast.LENGTH_SHORT).show();
-                                } else {
-                                    d1.add(" ");
-                                    //Toast.makeText(Monthly.this, "Not Pres"+value.getString(id), Toast.LENGTH_SHORT).show();
+                                if (error!= null){
+                                    //Nothing
+                                }else{
+                                    if (value.getString(id) != null) {
+                                        d1.add(value.getString(id));
+                                        //  Toast.makeText(Monthly.this, id+" "+value.getString(id), Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        d1.add(" ");
+                                        //Toast.makeText(Monthly.this, "Not Pres"+value.getString(id), Toast.LENGTH_SHORT).show();
+                                    }
+
                                 }
 
                             }
@@ -221,14 +229,18 @@ public class Monthly extends AppCompatActivity {
                                 .document(userId).collection("Attendance Record").document(date_data.get(1).toString()).addSnapshotListener(new EventListener<DocumentSnapshot>() {
                             @Override
                             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                                if (error != null){
 
-                                if (value.getString(id) != null) {
-                                    d2.add(value.getString(id));
-                                    //  Toast.makeText(Monthly.this, id+" "+value.getString(id), Toast.LENGTH_SHORT).show();
-                                } else {
-                                    d2.add(" ");
-                                    //Toast.makeText(Monthly.this, "Not Pres"+value.getString(id), Toast.LENGTH_SHORT).show();
+                                }else{
+                                    if (value.getString(id) != null) {
+                                        d2.add(value.getString(id));
+                                        //  Toast.makeText(Monthly.this, id+" "+value.getString(id), Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        d2.add(" ");
+                                        //Toast.makeText(Monthly.this, "Not Pres"+value.getString(id), Toast.LENGTH_SHORT).show();
+                                    }
                                 }
+
 
                             }
 
@@ -238,13 +250,18 @@ public class Monthly extends AppCompatActivity {
                             @Override
                             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
 
-                                if (value.getString(id) != null) {
-                                    d3.add(value.getString(id));
-                                    //  Toast.makeText(Monthly.this, id+" "+value.getString(id), Toast.LENGTH_SHORT).show();
-                                } else {
-                                    d3.add(" ");
-                                    //Toast.makeText(Monthly.this, "Not Pres"+value.getString(id), Toast.LENGTH_SHORT).show();
+                                if (error != null){
+
+                                }else{
+                                    if (value.getString(id) != null) {
+                                        d3.add(value.getString(id));
+                                        //  Toast.makeText(Monthly.this, id+" "+value.getString(id), Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        d3.add(" ");
+                                        //Toast.makeText(Monthly.this, "Not Pres"+value.getString(id), Toast.LENGTH_SHORT).show();
+                                    }
                                 }
+
 
                             }
 
@@ -254,13 +271,18 @@ public class Monthly extends AppCompatActivity {
                             @Override
                             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
 
-                                if (value.getString(id) != null) {
-                                    d4.add(value.getString(id));
-                                    //  Toast.makeText(Monthly.this, id+" "+value.getString(id), Toast.LENGTH_SHORT).show();
-                                } else {
-                                    d4.add(" ");
-                                    //Toast.makeText(Monthly.this, "Not Pres"+value.getString(id), Toast.LENGTH_SHORT).show();
+                                if (error != null){
+
+                                }else{
+                                    if (value.getString(id) != null) {
+                                        d4.add(value.getString(id));
+                                        //  Toast.makeText(Monthly.this, id+" "+value.getString(id), Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        d4.add(" ");
+                                        //Toast.makeText(Monthly.this, "Not Pres"+value.getString(id), Toast.LENGTH_SHORT).show();
+                                    }
                                 }
+
                                 // button_go.setVisibility(View.VISIBLE);
                             }
 
@@ -270,13 +292,18 @@ public class Monthly extends AppCompatActivity {
                             @Override
                             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
 
-                                if (value.getString(id) != null) {
-                                    d5.add(value.getString(id));
-                                    //  Toast.makeText(Monthly.this, id+" "+value.getString(id), Toast.LENGTH_SHORT).show();
-                                } else {
-                                    d5.add(" ");
-                                    //Toast.makeText(Monthly.this, "Not Pres"+value.getString(id), Toast.LENGTH_SHORT).show();
+                                if (error != null){
+
+                                }else{
+                                    if (value.getString(id) != null) {
+                                        d5.add(value.getString(id));
+                                        //  Toast.makeText(Monthly.this, id+" "+value.getString(id), Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        d5.add(" ");
+                                        //Toast.makeText(Monthly.this, "Not Pres"+value.getString(id), Toast.LENGTH_SHORT).show();
+                                    }
                                 }
+
                                 // button_go.setVisibility(View.VISIBLE);
                             }
 
@@ -286,13 +313,18 @@ public class Monthly extends AppCompatActivity {
                             @Override
                             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
 
-                                if (value.getString(id) != null) {
-                                    d6.add(value.getString(id));
-                                    //  Toast.makeText(Monthly.this, id+" "+value.getString(id), Toast.LENGTH_SHORT).show();
-                                } else {
-                                    d6.add(" ");
-                                    //Toast.makeText(Monthly.this, "Not Pres"+value.getString(id), Toast.LENGTH_SHORT).show();
+                                if (error != null){
+
+                                }else{
+                                    if (value.getString(id) != null) {
+                                        d6.add(value.getString(id));
+                                        //  Toast.makeText(Monthly.this, id+" "+value.getString(id), Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        d6.add(" ");
+                                        //Toast.makeText(Monthly.this, "Not Pres"+value.getString(id), Toast.LENGTH_SHORT).show();
+                                    }
                                 }
+
                                 // button_go.setVisibility(View.VISIBLE);
                             }
 
@@ -302,13 +334,18 @@ public class Monthly extends AppCompatActivity {
                             @Override
                             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
 
-                                if (value.getString(id) != null) {
-                                    d7.add(value.getString(id));
-                                    //  Toast.makeText(Monthly.this, id+" "+value.getString(id), Toast.LENGTH_SHORT).show();
-                                } else {
-                                    d7.add(" ");
-                                    //Toast.makeText(Monthly.this, "Not Pres"+value.getString(id), Toast.LENGTH_SHORT).show();
+                                if (error != null){
+
+                                }else{
+                                    if (value.getString(id) != null) {
+                                        d7.add(value.getString(id));
+                                        //  Toast.makeText(Monthly.this, id+" "+value.getString(id), Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        d7.add(" ");
+                                        //Toast.makeText(Monthly.this, "Not Pres"+value.getString(id), Toast.LENGTH_SHORT).show();
+                                    }
                                 }
+
                                 // button_go.setVisibility(View.VISIBLE);
                             }
 
@@ -318,13 +355,18 @@ public class Monthly extends AppCompatActivity {
                             @Override
                             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
 
-                                if (value.getString(id) != null) {
-                                    d8.add(value.getString(id));
-                                    //  Toast.makeText(Monthly.this, id+" "+value.getString(id), Toast.LENGTH_SHORT).show();
-                                } else {
-                                    d8.add(" ");
-                                    //Toast.makeText(Monthly.this, "Not Pres"+value.getString(id), Toast.LENGTH_SHORT).show();
+                                if (error != null){
+
+                                }else{
+                                    if (value.getString(id) != null) {
+                                        d8.add(value.getString(id));
+                                        //  Toast.makeText(Monthly.this, id+" "+value.getString(id), Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        d8.add(" ");
+                                        //Toast.makeText(Monthly.this, "Not Pres"+value.getString(id), Toast.LENGTH_SHORT).show();
+                                    }
                                 }
+
                                 // button_go.setVisibility(View.VISIBLE);
                             }
 
@@ -334,13 +376,18 @@ public class Monthly extends AppCompatActivity {
                             @Override
                             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
 
-                                if (value.getString(id) != null) {
-                                    d9.add(value.getString(id));
-                                    //  Toast.makeText(Monthly.this, id+" "+value.getString(id), Toast.LENGTH_SHORT).show();
-                                } else {
-                                    d9.add(" ");
-                                    //Toast.makeText(Monthly.this, "Not Pres"+value.getString(id), Toast.LENGTH_SHORT).show();
+                                if (error != null){
+
+                                }else{
+                                    if (value.getString(id) != null) {
+                                        d9.add(value.getString(id));
+                                        //  Toast.makeText(Monthly.this, id+" "+value.getString(id), Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        d9.add(" ");
+                                        //Toast.makeText(Monthly.this, "Not Pres"+value.getString(id), Toast.LENGTH_SHORT).show();
+                                    }
                                 }
+
                                 // button_go.setVisibility(View.VISIBLE);
                             }
 
@@ -349,16 +396,24 @@ public class Monthly extends AppCompatActivity {
                                 .document(userId).collection("Attendance Record").document(date_data.get(9).toString()).addSnapshotListener(new EventListener<DocumentSnapshot>() {
                             @Override
                             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-
-                                if (value.getString(id) != null) {
-                                    d10.add(value.getString(id));
-                                    //  Toast.makeText(Monthly.this, id+" "+value.getString(id), Toast.LENGTH_SHORT).show();
-                                } else {
-                                    d10.add(" ");
-                                    //Toast.makeText(Monthly.this, "Not Pres"+value.getString(id), Toast.LENGTH_SHORT).show();
+                                if (error != null){
+                                    //nothing
+                                }else{
+                                    if (error != null){
+                                        //nothing
+                                    }else {
+                                        if (value.getString(id) != null) {
+                                            d10.add(value.getString(id));
+                                            //  Toast.makeText(Monthly.this, id+" "+value.getString(id), Toast.LENGTH_SHORT).show();
+                                        } else {
+                                            d10.add(" ");
+                                            //Toast.makeText(Monthly.this, "Not Pres"+value.getString(id), Toast.LENGTH_SHORT).show();
+                                        }
+                                        // button_go.setVisibility(View.VISIBLE);
+                                    }
                                 }
-                                // button_go.setVisibility(View.VISIBLE);
-                            }
+                                }
+
 
                         });
                         FirebaseFirestore.getInstance().collection("Users Detail")
@@ -366,13 +421,18 @@ public class Monthly extends AppCompatActivity {
                             @Override
                             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
 
-                                if (value.getString(id) != null) {
-                                    d11.add(value.getString(id));
-                                    //  Toast.makeText(Monthly.this, id+" "+value.getString(id), Toast.LENGTH_SHORT).show();
-                                } else {
-                                    d11.add(" ");
-                                    //Toast.makeText(Monthly.this, "Not Pres"+value.getString(id), Toast.LENGTH_SHORT).show();
+                                if (error != null){
+
+                                }else{
+                                    if (value.getString(id) != null) {
+                                        d11.add(value.getString(id));
+                                        //  Toast.makeText(Monthly.this, id+" "+value.getString(id), Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        d11.add(" ");
+                                        //Toast.makeText(Monthly.this, "Not Pres"+value.getString(id), Toast.LENGTH_SHORT).show();
+                                    }
                                 }
+
                                 // button_go.setVisibility(View.VISIBLE);
                             }
 
@@ -382,13 +442,18 @@ public class Monthly extends AppCompatActivity {
                             @Override
                             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
 
-                                if (value.getString(id) != null) {
-                                    d12.add(value.getString(id));
-                                    //  Toast.makeText(Monthly.this, id+" "+value.getString(id), Toast.LENGTH_SHORT).show();
-                                } else {
-                                    d12.add(" ");
-                                    //Toast.makeText(Monthly.this, "Not Pres"+value.getString(id), Toast.LENGTH_SHORT).show();
+                                if (error != null){
+
+                                }else{
+                                    if (value.getString(id) != null) {
+                                        d12.add(value.getString(id));
+                                        //  Toast.makeText(Monthly.this, id+" "+value.getString(id), Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        d12.add(" ");
+                                        //Toast.makeText(Monthly.this, "Not Pres"+value.getString(id), Toast.LENGTH_SHORT).show();
+                                    }
                                 }
+
                                 // button_go.setVisibility(View.VISIBLE);
                             }
 
@@ -398,13 +463,18 @@ public class Monthly extends AppCompatActivity {
                             @Override
                             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
 
-                                if (value.getString(id) != null) {
-                                    d13.add(value.getString(id));
-                                    //  Toast.makeText(Monthly.this, id+" "+value.getString(id), Toast.LENGTH_SHORT).show();
-                                } else {
-                                    d13.add(" ");
-                                    //Toast.makeText(Monthly.this, "Not Pres"+value.getString(id), Toast.LENGTH_SHORT).show();
+                                if (error != null){
+
+                                }else{
+                                    if (value.getString(id) != null) {
+                                        d13.add(value.getString(id));
+                                        //  Toast.makeText(Monthly.this, id+" "+value.getString(id), Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        d13.add(" ");
+                                        //Toast.makeText(Monthly.this, "Not Pres"+value.getString(id), Toast.LENGTH_SHORT).show();
+                                    }
                                 }
+
                                 // button_go.setVisibility(View.VISIBLE);
                             }
 
@@ -414,13 +484,18 @@ public class Monthly extends AppCompatActivity {
                             @Override
                             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
 
-                                if (value.getString(id) != null) {
-                                    d14.add(value.getString(id));
-                                    //  Toast.makeText(Monthly.this, id+" "+value.getString(id), Toast.LENGTH_SHORT).show();
-                                } else {
-                                    d14.add(" ");
-                                    //Toast.makeText(Monthly.this, "Not Pres"+value.getString(id), Toast.LENGTH_SHORT).show();
+                                if (error != null){
+
+                                }else{
+                                    if (value.getString(id) != null) {
+                                        d14.add(value.getString(id));
+                                        //  Toast.makeText(Monthly.this, id+" "+value.getString(id), Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        d14.add(" ");
+                                        //Toast.makeText(Monthly.this, "Not Pres"+value.getString(id), Toast.LENGTH_SHORT).show();
+                                    }
                                 }
+
                                 // button_go.setVisibility(View.VISIBLE);
                             }
 
@@ -430,13 +505,18 @@ public class Monthly extends AppCompatActivity {
                             @Override
                             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
 
-                                if (value.getString(id) != null) {
-                                    d15.add(value.getString(id));
-                                    //  Toast.makeText(Monthly.this, id+" "+value.getString(id), Toast.LENGTH_SHORT).show();
-                                } else {
-                                    d15.add(" ");
-                                    //Toast.makeText(Monthly.this, "Not Pres"+value.getString(id), Toast.LENGTH_SHORT).show();
+                                if (error != null){
+
+                                }else{
+                                    if (value.getString(id) != null) {
+                                        d15.add(value.getString(id));
+                                        //  Toast.makeText(Monthly.this, id+" "+value.getString(id), Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        d15.add(" ");
+                                        //Toast.makeText(Monthly.this, "Not Pres"+value.getString(id), Toast.LENGTH_SHORT).show();
+                                    }
                                 }
+
                                 // button_go.setVisibility(View.VISIBLE);
                             }
 
@@ -446,13 +526,18 @@ public class Monthly extends AppCompatActivity {
                             @Override
                             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
 
-                                if (value.getString(id) != null) {
-                                    d16.add(value.getString(id));
-                                    //  Toast.makeText(Monthly.this, id+" "+value.getString(id), Toast.LENGTH_SHORT).show();
-                                } else {
-                                    d16.add(" ");
-                                    //Toast.makeText(Monthly.this, "Not Pres"+value.getString(id), Toast.LENGTH_SHORT).show();
+                                if (error != null){
+
+                                }else{
+                                    if (value.getString(id) != null) {
+                                        d16.add(value.getString(id));
+                                        //  Toast.makeText(Monthly.this, id+" "+value.getString(id), Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        d16.add(" ");
+                                        //Toast.makeText(Monthly.this, "Not Pres"+value.getString(id), Toast.LENGTH_SHORT).show();
+                                    }
                                 }
+
                                 // button_go.setVisibility(View.VISIBLE);
                             }
 
@@ -462,13 +547,18 @@ public class Monthly extends AppCompatActivity {
                             @Override
                             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
 
-                                if (value.getString(id) != null) {
-                                    d17.add(value.getString(id));
-                                    //  Toast.makeText(Monthly.this, id+" "+value.getString(id), Toast.LENGTH_SHORT).show();
-                                } else {
-                                    d17.add(" ");
-                                    //Toast.makeText(Monthly.this, "Not Pres"+value.getString(id), Toast.LENGTH_SHORT).show();
+                                if (error != null){
+
+                                }else{
+                                    if (value.getString(id) != null) {
+                                        d17.add(value.getString(id));
+                                        //  Toast.makeText(Monthly.this, id+" "+value.getString(id), Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        d17.add(" ");
+                                        //Toast.makeText(Monthly.this, "Not Pres"+value.getString(id), Toast.LENGTH_SHORT).show();
+                                    }
                                 }
+
                                 // button_go.setVisibility(View.VISIBLE);
                             }
 
@@ -478,13 +568,18 @@ public class Monthly extends AppCompatActivity {
                             @Override
                             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
 
-                                if (value.getString(id) != null) {
-                                    d18.add(value.getString(id));
-                                    //  Toast.makeText(Monthly.this, id+" "+value.getString(id), Toast.LENGTH_SHORT).show();
-                                } else {
-                                    d18.add(" ");
-                                    //Toast.makeText(Monthly.this, "Not Pres"+value.getString(id), Toast.LENGTH_SHORT).show();
+                                if (error != null){
+
+                                }else{
+                                    if (value.getString(id) != null) {
+                                        d18.add(value.getString(id));
+                                        //  Toast.makeText(Monthly.this, id+" "+value.getString(id), Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        d18.add(" ");
+                                        //Toast.makeText(Monthly.this, "Not Pres"+value.getString(id), Toast.LENGTH_SHORT).show();
+                                    }
                                 }
+
                                 // button_go.setVisibility(View.VISIBLE);
                             }
 
@@ -494,13 +589,18 @@ public class Monthly extends AppCompatActivity {
                             @Override
                             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
 
-                                if (value.getString(id) != null) {
-                                    d19.add(value.getString(id));
-                                    //  Toast.makeText(Monthly.this, id+" "+value.getString(id), Toast.LENGTH_SHORT).show();
-                                } else {
-                                    d19.add(" ");
-                                    //Toast.makeText(Monthly.this, "Not Pres"+value.getString(id), Toast.LENGTH_SHORT).show();
+                                if (error != null){
+
+                                }else{
+                                    if (value.getString(id) != null) {
+                                        d19.add(value.getString(id));
+                                        //  Toast.makeText(Monthly.this, id+" "+value.getString(id), Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        d19.add(" ");
+                                        //Toast.makeText(Monthly.this, "Not Pres"+value.getString(id), Toast.LENGTH_SHORT).show();
+                                    }
                                 }
+
                                 // button_go.setVisibility(View.VISIBLE);
                             }
 
@@ -510,13 +610,18 @@ public class Monthly extends AppCompatActivity {
                             @Override
                             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
 
-                                if (value.getString(id) != null) {
-                                    d20.add(value.getString(id));
-                                    //  Toast.makeText(Monthly.this, id+" "+value.getString(id), Toast.LENGTH_SHORT).show();
-                                } else {
-                                    d20.add(" ");
-                                    //Toast.makeText(Monthly.this, "Not Pres"+value.getString(id), Toast.LENGTH_SHORT).show();
+                                if (error != null){
+
+                                }else{
+                                    if (value.getString(id) != null) {
+                                        d20.add(value.getString(id));
+                                        //  Toast.makeText(Monthly.this, id+" "+value.getString(id), Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        d20.add(" ");
+                                        //Toast.makeText(Monthly.this, "Not Pres"+value.getString(id), Toast.LENGTH_SHORT).show();
+                                    }
                                 }
+
                                 // button_go.setVisibility(View.VISIBLE);
                             }
 
@@ -526,13 +631,18 @@ public class Monthly extends AppCompatActivity {
                             @Override
                             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
 
-                                if (value.getString(id) != null) {
-                                    d21.add(value.getString(id));
-                                    //  Toast.makeText(Monthly.this, id+" "+value.getString(id), Toast.LENGTH_SHORT).show();
-                                } else {
-                                    d21.add(" ");
-                                    //Toast.makeText(Monthly.this, "Not Pres"+value.getString(id), Toast.LENGTH_SHORT).show();
+                                if (error != null){
+
+                                }else{
+                                    if (value.getString(id) != null) {
+                                        d21.add(value.getString(id));
+                                        //  Toast.makeText(Monthly.this, id+" "+value.getString(id), Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        d21.add(" ");
+                                        //Toast.makeText(Monthly.this, "Not Pres"+value.getString(id), Toast.LENGTH_SHORT).show();
+                                    }
                                 }
+
                                 // button_go.setVisibility(View.VISIBLE);
                             }
 
@@ -542,13 +652,18 @@ public class Monthly extends AppCompatActivity {
                             @Override
                             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
 
-                                if (value.getString(id) != null) {
-                                    d22.add(value.getString(id));
-                                    //  Toast.makeText(Monthly.this, id+" "+value.getString(id), Toast.LENGTH_SHORT).show();
-                                } else {
-                                    d22.add(" ");
-                                    //Toast.makeText(Monthly.this, "Not Pres"+value.getString(id), Toast.LENGTH_SHORT).show();
+                                if (error != null){
+
+                                }else{
+                                    if (value.getString(id) != null) {
+                                        d22.add(value.getString(id));
+                                        //  Toast.makeText(Monthly.this, id+" "+value.getString(id), Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        d22.add(" ");
+                                        //Toast.makeText(Monthly.this, "Not Pres"+value.getString(id), Toast.LENGTH_SHORT).show();
+                                    }
                                 }
+
                                 // button_go.setVisibility(View.VISIBLE);
                             }
 
@@ -557,15 +672,19 @@ public class Monthly extends AppCompatActivity {
                                 .document(userId).collection("Attendance Record").document(date_data.get(22).toString()).addSnapshotListener(new EventListener<DocumentSnapshot>() {
                             @Override
                             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-
-                                if (value.getString(id) != null) {
-                                    d23.add(value.getString(id));
-                                    //  Toast.makeText(Monthly.this, id+" "+value.getString(id), Toast.LENGTH_SHORT).show();
-                                } else {
-                                    d23.add(" ");
-                                    //Toast.makeText(Monthly.this, "Not Pres"+value.getString(id), Toast.LENGTH_SHORT).show();
+                                if (error != null){
+                                    Log.d("TAG", "Nothing");
+                                }else {
+                                    if (value.getString(id) != null) {
+                                        d23.add(value.getString(id));
+                                        //  Toast.makeText(Monthly.this, id+" "+value.getString(id), Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        d23.add(" ");
+                                        //Toast.makeText(Monthly.this, "Not Pres"+value.getString(id), Toast.LENGTH_SHORT).show();
+                                    }
+                                    // button_go.setVisibility(View.VISIBLE);
                                 }
-                                // button_go.setVisibility(View.VISIBLE);
+
                             }
 
                         });
@@ -574,13 +693,18 @@ public class Monthly extends AppCompatActivity {
                             @Override
                             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
 
-                                if (value.getString(id) != null) {
-                                    d24.add(value.getString(id));
-                                    //  Toast.makeText(Monthly.this, id+" "+value.getString(id), Toast.LENGTH_SHORT).show();
-                                } else {
-                                    d24.add(" ");
-                                    //Toast.makeText(Monthly.this, "Not Pres"+value.getString(id), Toast.LENGTH_SHORT).show();
+                                if (error != null){
+
+                                }else{
+                                    if (value.getString(id) != null) {
+                                        d24.add(value.getString(id));
+                                        //  Toast.makeText(Monthly.this, id+" "+value.getString(id), Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        d24.add(" ");
+                                        //Toast.makeText(Monthly.this, "Not Pres"+value.getString(id), Toast.LENGTH_SHORT).show();
+                                    }
                                 }
+
                                 // button_go.setVisibility(View.VISIBLE);
                             }
 
@@ -590,13 +714,18 @@ public class Monthly extends AppCompatActivity {
                             @Override
                             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
 
-                                if (value.getString(id) != null) {
-                                    d25.add(value.getString(id));
-                                    //  Toast.makeText(Monthly.this, id+" "+value.getString(id), Toast.LENGTH_SHORT).show();
-                                } else {
-                                    d25.add(" ");
-                                    //Toast.makeText(Monthly.this, "Not Pres"+value.getString(id), Toast.LENGTH_SHORT).show();
+                                if (error != null){
+
+                                }else{
+                                    if (value.getString(id) != null) {
+                                        d25.add(value.getString(id));
+                                        //  Toast.makeText(Monthly.this, id+" "+value.getString(id), Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        d25.add(" ");
+                                        //Toast.makeText(Monthly.this, "Not Pres"+value.getString(id), Toast.LENGTH_SHORT).show();
+                                    }
                                 }
+
                                 // button_go.setVisibility(View.VISIBLE);
                             }
 
@@ -606,13 +735,18 @@ public class Monthly extends AppCompatActivity {
                             @Override
                             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
 
-                                if (value.getString(id) != null) {
-                                    d26.add(value.getString(id));
-                                    //  Toast.makeText(Monthly.this, id+" "+value.getString(id), Toast.LENGTH_SHORT).show();
-                                } else {
-                                    d26.add(" ");
-                                    //Toast.makeText(Monthly.this, "Not Pres"+value.getString(id), Toast.LENGTH_SHORT).show();
+                                if (error != null){
+
+                                }else{
+                                    if (value.getString(id) != null) {
+                                        d26.add(value.getString(id));
+                                        //  Toast.makeText(Monthly.this, id+" "+value.getString(id), Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        d26.add(" ");
+                                        //Toast.makeText(Monthly.this, "Not Pres"+value.getString(id), Toast.LENGTH_SHORT).show();
+                                    }
                                 }
+
                                 // button_go.setVisibility(View.VISIBLE);
                             }
 
@@ -622,13 +756,18 @@ public class Monthly extends AppCompatActivity {
                             @Override
                             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
 
-                                if (value.getString(id) != null) {
-                                    d27.add(value.getString(id));
-                                    //  Toast.makeText(Monthly.this, id+" "+value.getString(id), Toast.LENGTH_SHORT).show();
-                                } else {
-                                    d27.add(" ");
-                                    //Toast.makeText(Monthly.this, "Not Pres"+value.getString(id), Toast.LENGTH_SHORT).show();
+                                if (error != null){
+
+                                }else{
+                                    if (value.getString(id) != null) {
+                                        d27.add(value.getString(id));
+                                        //  Toast.makeText(Monthly.this, id+" "+value.getString(id), Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        d27.add(" ");
+                                        //Toast.makeText(Monthly.this, "Not Pres"+value.getString(id), Toast.LENGTH_SHORT).show();
+                                    }
                                 }
+
                                 // button_go.setVisibility(View.VISIBLE);
                             }
 
@@ -638,13 +777,18 @@ public class Monthly extends AppCompatActivity {
                             @Override
                             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
 
-                                if (value.getString(id) != null) {
-                                    d28.add(value.getString(id));
-                                    //  Toast.makeText(Monthly.this, id+" "+value.getString(id), Toast.LENGTH_SHORT).show();
-                                } else {
-                                    d28.add(" ");
-                                    //Toast.makeText(Monthly.this, "Not Pres"+value.getString(id), Toast.LENGTH_SHORT).show();
+                                if (error != null){
+
+                                }else{
+                                    if (value.getString(id) != null) {
+                                        d28.add(value.getString(id));
+                                        //  Toast.makeText(Monthly.this, id+" "+value.getString(id), Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        d28.add(" ");
+                                        //Toast.makeText(Monthly.this, "Not Pres"+value.getString(id), Toast.LENGTH_SHORT).show();
+                                    }
                                 }
+
                                 // button_go.setVisibility(View.VISIBLE);
                             }
 
@@ -654,13 +798,18 @@ public class Monthly extends AppCompatActivity {
                             @Override
                             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
 
-                                if (value.getString(id) != null) {
-                                    d29.add(value.getString(id));
-                                    //  Toast.makeText(Monthly.this, id+" "+value.getString(id), Toast.LENGTH_SHORT).show();
-                                } else {
-                                    d29.add(" ");
-                                    //Toast.makeText(Monthly.this, "Not Pres"+value.getString(id), Toast.LENGTH_SHORT).show();
+                                if (error != null){
+
+                                }else{
+                                    if (value.getString(id) != null) {
+                                        d29.add(value.getString(id));
+                                        //  Toast.makeText(Monthly.this, id+" "+value.getString(id), Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        d29.add(" ");
+                                        //Toast.makeText(Monthly.this, "Not Pres"+value.getString(id), Toast.LENGTH_SHORT).show();
+                                    }
                                 }
+
                                 // button_go.setVisibility(View.VISIBLE);
                             }
 
@@ -670,13 +819,18 @@ public class Monthly extends AppCompatActivity {
                             @Override
                             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
 
-                                if (value.getString(id) != null) {
-                                    d30.add(value.getString(id));
-                                    //  Toast.makeText(Monthly.this, id+" "+value.getString(id), Toast.LENGTH_SHORT).show();
-                                } else {
-                                    d30.add(" ");
-                                    //Toast.makeText(Monthly.this, "Not Pres"+value.getString(id), Toast.LENGTH_SHORT).show();
+                                if (error != null){
+
+                                }else{
+                                    if (value.getString(id) != null) {
+                                        d30.add(value.getString(id));
+                                        //  Toast.makeText(Monthly.this, id+" "+value.getString(id), Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        d30.add(" ");
+                                        //Toast.makeText(Monthly.this, "Not Pres"+value.getString(id), Toast.LENGTH_SHORT).show();
+                                    }
                                 }
+
                                 // button_go.setVisibility(View.VISIBLE);
                             }
 
@@ -686,13 +840,18 @@ public class Monthly extends AppCompatActivity {
                             @Override
                             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
 
-                                if (value.getString(id) != null) {
-                                    d31.add(value.getString(id));
-                                    //  Toast.makeText(Monthly.this, id+" "+value.getString(id), Toast.LENGTH_SHORT).show();
-                                } else {
-                                    d31.add(" ");
-                                    //Toast.makeText(Monthly.this, "Not Pres"+value.getString(id), Toast.LENGTH_SHORT).show();
+                                if (error != null){
+
+                                }else{
+                                    if (value.getString(id) != null) {
+                                        d31.add(value.getString(id));
+                                        //  Toast.makeText(Monthly.this, id+" "+value.getString(id), Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        d31.add(" ");
+                                        //Toast.makeText(Monthly.this, "Not Pres"+value.getString(id), Toast.LENGTH_SHORT).show();
+                                    }
                                 }
+
                                 button_go.setVisibility(View.VISIBLE);
                             }
 
