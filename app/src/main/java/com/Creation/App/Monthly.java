@@ -38,8 +38,10 @@ public class Monthly extends AppCompatActivity {
     FirebaseFirestore fStore;
     String userId, UAN_id;
     TextView employeeRetrive;
+    //Attendance View
     List<String> name, d1, d2, d3, d4, d5, d6, d7, d8, d9, d10, key, UAN_i, date_data, d11, d12, d13, d14, d15, d16, d17, d18, d19, d20, d21, d22, d23, d24, d25, d26, d27, d28, d29, d30, d31;
     String UserId, UAN;
+   // Attendance View
     String[][] data = new String[4][100];
     int index;
     Button button_go;
@@ -72,14 +74,6 @@ public class Monthly extends AppCompatActivity {
         Button Annual = findViewById(R.id.btn_annual);
         Button Employee = findViewById(R.id.btn_employees);
         Button Profile = findViewById(R.id.btn_profile);
-        Monthly.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), Monthly.class);
-                startActivity(intent);
-                finish();
-            }
-        });
         Annual.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

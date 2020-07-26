@@ -1,11 +1,11 @@
 package com.Creation.App;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class Annual extends AppCompatActivity {
 
@@ -21,14 +21,6 @@ public class Annual extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent=new Intent(getApplicationContext(),Monthly.class);
-                startActivity(intent);
-                finish();
-            }
-        });
-        Annual.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent=new Intent(getApplicationContext(),Annual.class);
                 startActivity(intent);
                 finish();
             }

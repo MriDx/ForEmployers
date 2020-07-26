@@ -8,7 +8,6 @@
     android:background="@drawable/new_login_background"
     >
 
-
     <LinearLayout
         android:id="@+id/linearLayout3"
         android:layout_width="0dp"
@@ -17,6 +16,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
+
 
         <Button
             android:id="@+id/btn_monthly"
@@ -74,33 +74,37 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/my_recycler_view"
-        android:layout_width="fill_parent"
+        android:layout_width="0dp"
         android:layout_height="0dp"
+
+
         android:background="@android:color/transparent"
-
-
         android:paddingBottom="16dp"
         android:scrollbars="vertical"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.567"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pageName" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_last_updated" />
 
     <TextView
         android:id="@+id/pageName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="16dp"
         android:fontFamily="@font/acme"
         android:text="Employee's List"
         android:textColor="#000000"
         android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/my_recycler_view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_last_updated"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@+id/pageName"
+        tools:layout_editor_absoluteX="357dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

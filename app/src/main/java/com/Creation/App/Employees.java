@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -26,7 +27,10 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -60,6 +64,7 @@ public class Employees extends AppCompatActivity implements MyRecyclerViewAdapte
         employeeRetrive = findViewById(R.id.employee_retrive_name);
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
+        final TextView tv_date_last_updated = findViewById(R.id.tv_last_updated);
 
 
         fAuth = FirebaseAuth.getInstance();
@@ -72,6 +77,16 @@ public class Employees extends AppCompatActivity implements MyRecyclerViewAdapte
         Button Profile = findViewById(R.id.btn_profile);
 
         userId = Objects.requireNonNull(fAuth.getCurrentUser()).getUid();
+        FirebaseFirestore.getInstance().collection("Users Detail")
+                .document(userId).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                if (value.getString("Last Updated") != null)
+                    tv_date_last_updated.setText("Last Updated : " + value.getString("Last Updated"));
+                else
+                    tv_date_last_updated.setText("Last Updated : " + "NA");
+            }
+        });
 
 
         work();
