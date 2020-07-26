@@ -38,7 +38,7 @@ public class Monthly extends AppCompatActivity {
     FirebaseFirestore fStore;
     String userId, UAN_id;
     TextView employeeRetrive;
-    List<String> name, d1, d2, d3, d4, d5, d6, d7, d8, d9, d10, key, UAN_i, date_data,d11,d12,d13,d14,d15,d16,d17,d18,d19,d20,d21,d22,d23,d24,d25,d26,d27,d28,d29,d30,d31;
+    List<String> name, d1, d2, d3, d4, d5, d6, d7, d8, d9, d10, key, UAN_i, date_data, d11, d12, d13, d14, d15, d16, d17, d18, d19, d20, d21, d22, d23, d24, d25, d26, d27, d28, d29, d30, d31;
     String UserId, UAN;
     String[][] data = new String[4][100];
     int index;
@@ -152,11 +152,27 @@ public class Monthly extends AppCompatActivity {
         final String year = ye.format(cal.getTime());
 
         for (int i = 0; i < 31; i++) {
-            date_data.add(i, (i + 1) +"-"+ month +"-"+year);
-           // Toast.makeText(this, (i + 1) +"-"+ month +"-"+year, Toast.LENGTH_SHORT).show();
+            date_data.add(i, (i + 1) + "-" + month + "-" + year);
+            // Toast.makeText(this, (i + 1) +"-"+ month +"-"+year, Toast.LENGTH_SHORT).show();
         }
 
-      //  Toast.makeText(this, month, Toast.LENGTH_SHORT).show();
+        work();
+
+
+        button_go.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                mAdapter = new MyRecyclerViewAdapterView(getDataSet());
+                mRecyclerView.setAdapter(mAdapter);
+            }
+        });
+
+    }
+
+    private void work() {
+
+        //  Toast.makeText(this, month, Toast.LENGTH_SHORT).show();
         FirebaseFirestore.getInstance().collection("Users Detail/" + userId + "/Employee List").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -245,7 +261,7 @@ public class Monthly extends AppCompatActivity {
                                     d4.add(" ");
                                     //Toast.makeText(Monthly.this, "Not Pres"+value.getString(id), Toast.LENGTH_SHORT).show();
                                 }
-                               // button_go.setVisibility(View.VISIBLE);
+                                // button_go.setVisibility(View.VISIBLE);
                             }
 
                         });
@@ -296,37 +312,39 @@ public class Monthly extends AppCompatActivity {
                                 // button_go.setVisibility(View.VISIBLE);
                             }
 
-                        }); FirebaseFirestore.getInstance().collection("Users Detail")
+                        });
+                        FirebaseFirestore.getInstance().collection("Users Detail")
                                 .document(userId).collection("Attendance Record").document(date_data.get(7).toString()).addSnapshotListener(new EventListener<DocumentSnapshot>() {
-                                    @Override
-                                    public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                            @Override
+                            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
 
-                                        if (value.getString(id) != null) {
-                                            d8.add(value.getString(id));
-                                            //  Toast.makeText(Monthly.this, id+" "+value.getString(id), Toast.LENGTH_SHORT).show();
-                                        } else {
-                                            d8.add(" ");
-                                            //Toast.makeText(Monthly.this, "Not Pres"+value.getString(id), Toast.LENGTH_SHORT).show();
-                                        }
-                                        // button_go.setVisibility(View.VISIBLE);
-                                    }
+                                if (value.getString(id) != null) {
+                                    d8.add(value.getString(id));
+                                    //  Toast.makeText(Monthly.this, id+" "+value.getString(id), Toast.LENGTH_SHORT).show();
+                                } else {
+                                    d8.add(" ");
+                                    //Toast.makeText(Monthly.this, "Not Pres"+value.getString(id), Toast.LENGTH_SHORT).show();
+                                }
+                                // button_go.setVisibility(View.VISIBLE);
+                            }
 
-                                }); FirebaseFirestore.getInstance().collection("Users Detail")
+                        });
+                        FirebaseFirestore.getInstance().collection("Users Detail")
                                 .document(userId).collection("Attendance Record").document(date_data.get(8).toString()).addSnapshotListener(new EventListener<DocumentSnapshot>() {
-                                    @Override
-                                    public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                            @Override
+                            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
 
-                                        if (value.getString(id) != null) {
-                                            d9.add(value.getString(id));
-                                            //  Toast.makeText(Monthly.this, id+" "+value.getString(id), Toast.LENGTH_SHORT).show();
-                                        } else {
-                                            d9.add(" ");
-                                            //Toast.makeText(Monthly.this, "Not Pres"+value.getString(id), Toast.LENGTH_SHORT).show();
-                                        }
-                                        // button_go.setVisibility(View.VISIBLE);
-                                    }
+                                if (value.getString(id) != null) {
+                                    d9.add(value.getString(id));
+                                    //  Toast.makeText(Monthly.this, id+" "+value.getString(id), Toast.LENGTH_SHORT).show();
+                                } else {
+                                    d9.add(" ");
+                                    //Toast.makeText(Monthly.this, "Not Pres"+value.getString(id), Toast.LENGTH_SHORT).show();
+                                }
+                                // button_go.setVisibility(View.VISIBLE);
+                            }
 
-                                });
+                        });
                         FirebaseFirestore.getInstance().collection("Users Detail")
                                 .document(userId).collection("Attendance Record").document(date_data.get(9).toString()).addSnapshotListener(new EventListener<DocumentSnapshot>() {
                             @Override
@@ -534,22 +552,23 @@ public class Monthly extends AppCompatActivity {
                                 // button_go.setVisibility(View.VISIBLE);
                             }
 
-                        }); FirebaseFirestore.getInstance().collection("Users Detail")
+                        });
+                        FirebaseFirestore.getInstance().collection("Users Detail")
                                 .document(userId).collection("Attendance Record").document(date_data.get(22).toString()).addSnapshotListener(new EventListener<DocumentSnapshot>() {
-                                    @Override
-                                    public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                            @Override
+                            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
 
-                                        if (value.getString(id) != null) {
-                                            d23.add(value.getString(id));
-                                            //  Toast.makeText(Monthly.this, id+" "+value.getString(id), Toast.LENGTH_SHORT).show();
-                                        } else {
-                                            d23.add(" ");
-                                            //Toast.makeText(Monthly.this, "Not Pres"+value.getString(id), Toast.LENGTH_SHORT).show();
-                                        }
-                                        // button_go.setVisibility(View.VISIBLE);
-                                    }
+                                if (value.getString(id) != null) {
+                                    d23.add(value.getString(id));
+                                    //  Toast.makeText(Monthly.this, id+" "+value.getString(id), Toast.LENGTH_SHORT).show();
+                                } else {
+                                    d23.add(" ");
+                                    //Toast.makeText(Monthly.this, "Not Pres"+value.getString(id), Toast.LENGTH_SHORT).show();
+                                }
+                                // button_go.setVisibility(View.VISIBLE);
+                            }
 
-                                });
+                        });
                         FirebaseFirestore.getInstance().collection("Users Detail")
                                 .document(userId).collection("Attendance Record").document(date_data.get(23).toString()).addSnapshotListener(new EventListener<DocumentSnapshot>() {
                             @Override
@@ -679,28 +698,6 @@ public class Monthly extends AppCompatActivity {
 
                         });
 
-
-
-
-
-
-
-
-
-
-
-                        //hggh
-
-                        // d1.add("-");
-                       // d2.add("-");
-                       // d3.add("-");
-
-
-
-
-
-
-
                     }
 
 
@@ -711,64 +708,6 @@ public class Monthly extends AppCompatActivity {
                 }
             }
         });
-        button_go.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                mAdapter = new MyRecyclerViewAdapterView(getDataSet());
-                mRecyclerView.setAdapter(mAdapter);
-            }
-        });
-
-/**
- Calendar cal = Calendar.getInstance();
- SimpleDateFormat sd = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.getDefault());
- final String date = sd.format(cal.getTime());
-
- FirebaseFirestore.getInstance().collection("Users Detail/" + userId + "/Attendance Record").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-@Override public void onComplete(@NonNull Task<QuerySnapshot> task) {
-if (task.isSuccessful()) {
-
-
-for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
-key.add(document.getId().toString());
-// Toast.makeText(Monthly.this,document.getId().toString(), Toast.LENGTH_SHORT).show();
-
-FirebaseFirestore.getInstance().collection("Users Detail")
-.document(userId).collection("Attendance Record").document(document.getId().toString()).addSnapshotListener(new EventListener<DocumentSnapshot>() {
-@Override public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-
-//  Toast.makeText(Monthly.this, value.getId().toString(), Toast.LENGTH_SHORT).show();
-
-}
-});
-
-}
-
-
-final DocumentReference documentReference = FirebaseFirestore.getInstance()
-.collection("Users Detail/" + userId
-+ "/Attendance Record").document((date.substring(0, 10)));
-
-documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-@Override public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-if (task.isSuccessful()) {
-DocumentSnapshot document = task.getResult();
-if (document != null && document.exists()) {
-
-// Toast.makeText(Monthly.this, document.getId().toString(), Toast.LENGTH_SHORT).show();
-}
-}
-}
-});
-}
-}
-}).addOnFailureListener(new OnFailureListener() {
-@Override public void onFailure(@NonNull Exception e) {
-Toast.makeText(Monthly.this, "Error in submitting data.", Toast.LENGTH_SHORT).show();
-}
-});
- **/
     }
 
 
