@@ -129,7 +129,7 @@ public class Monthly extends AppCompatActivity {
                         //Toast.makeText(Monthly.this, document.getString("UAN").toString(), Toast.LENGTH_SHORT).show();
                         //search
                         FirebaseFirestore.getInstance().collection("Users Detail")
-                                .document(userId).collection("Attendance Record").document("25-07-2020").addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                                .document(userId).collection("Attendance Record").document("26-07-2020").addSnapshotListener(new EventListener<DocumentSnapshot>() {
                             @Override
                             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
 
