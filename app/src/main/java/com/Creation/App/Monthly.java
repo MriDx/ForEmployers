@@ -185,22 +185,7 @@ public class Monthly extends AppCompatActivity {
                         //  Toast.makeText(Monthly.this, id, Toast.LENGTH_SHORT).show();
                         //Toast.makeText(Monthly.this, document.getString("UAN").toString(), Toast.LENGTH_SHORT).show();
                         //search
-                        FirebaseFirestore.getInstance().collection("Users Detail")
-                                .document(userId).collection("Attendance Record").document(date_data.get(0).toString()).addSnapshotListener(new EventListener<DocumentSnapshot>() {
-                            @Override
-                            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
 
-                                if (value.getString(id) != null) {
-                                    d1.add(value.getString(id));
-                                    //  Toast.makeText(Monthly.this, id+" "+value.getString(id), Toast.LENGTH_SHORT).show();
-                                } else {
-                                    d1.add(" ");
-                                    //Toast.makeText(Monthly.this, "Not Pres"+value.getString(id), Toast.LENGTH_SHORT).show();
-                                }
-
-                            }
-
-                        });
                         FirebaseFirestore.getInstance().collection("Users Detail")
                                 .document(userId).collection("Attendance Record").document(date_data.get(0).toString()).addSnapshotListener(new EventListener<DocumentSnapshot>() {
                             @Override
