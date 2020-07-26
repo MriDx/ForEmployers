@@ -124,7 +124,7 @@ key=new ArrayList<>();
 
                     for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
                         name.add(document.getString("Full Name"));
-                        d1.add("-");
+                        d1.add("A");
 
                         //hggh
 
