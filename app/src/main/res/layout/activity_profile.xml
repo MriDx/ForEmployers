@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/new_login_background"
-    tools:context=".Profile">
+    android:background="@drawable/new_login_background">
 
 
     <TextView
@@ -150,19 +149,7 @@
         app:layout_constraintVertical_bias="0.0"
         tools:ignore="HardcodedText" />
 
-    <ImageView
-        android:id="@+id/profilePicture"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.226"
-        tools:ignore="ContentDescription"
-        tools:srcCompat="@color/colorAccent" />
+
 
     <TextView
         android:id="@+id/textView3"
@@ -202,4 +189,16 @@
         app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="HardcodedText" />
+
+    <ImageView
+        android:id="@+id/profilePicture"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:src="@drawable/profile_pic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.226" />
 </androidx.constraintlayout.widget.ConstraintLayout>

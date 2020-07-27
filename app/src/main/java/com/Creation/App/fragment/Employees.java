@@ -1,12 +1,12 @@
-package com.Creation.App;
+package com.Creation.App.fragment;
 
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,10 +17,13 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.Creation.App.DataObject;
+import com.Creation.App.MyRecyclerViewAdapter;
+import com.Creation.App.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -40,8 +43,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-@SuppressWarnings("ALL")
-public class Employees extends AppCompatActivity implements MyRecyclerViewAdapter.OnListItemClick {
+public class Employees extends Fragment implements MyRecyclerViewAdapter.OnListItemClick {
+
     FirebaseAuth fAuth;
 
     FirebaseFirestore fStore;
@@ -54,27 +57,36 @@ public class Employees extends AppCompatActivity implements MyRecyclerViewAdapte
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_employees);
 
-        mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
+    public Employees() {
+        // Required empty public constructor
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.activity_employees, container, false);
+        initView(view);
+        return view;
+    }
+
+    private void initView(View view) {
+        //do your work here
+
+
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.my_recycler_view);
         mRecyclerView.setHasFixedSize(true);
-        employeeRetrive = findViewById(R.id.employee_retrive_name);
-        mLayoutManager = new LinearLayoutManager(this);
+        employeeRetrive = view.findViewById(R.id.employee_retrive_name);
+        mLayoutManager = new LinearLayoutManager(getContext());
         mRecyclerView.setLayoutManager(mLayoutManager);
-        final TextView tv_date_last_updated = findViewById(R.id.tv_last_updated);
+        final TextView tv_date_last_updated = view.findViewById(R.id.tv_last_updated);
 
 
         fAuth = FirebaseAuth.getInstance();
 
         fStore = FirebaseFirestore.getInstance();
 
-        Button Monthly = findViewById(R.id.btn_monthly);
-        Button Annual = findViewById(R.id.btn_annual);
-
-        Button Profile = findViewById(R.id.btn_profile);
 
         userId = Objects.requireNonNull(fAuth.getCurrentUser()).getUid();
         FirebaseFirestore.getInstance().collection("Users Detail")
@@ -91,41 +103,13 @@ public class Employees extends AppCompatActivity implements MyRecyclerViewAdapte
 
         work();
 
-
-        Monthly.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), Monthly.class);
-                startActivity(intent);
-                finish();
-            }
-        });
-        Annual.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), Annual.class);
-                startActivity(intent);
-                finish();
-            }
-        });
-
-        Profile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), Profile.class);
-                startActivity(intent);
-                finish();
-            }
-        });
-
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
 
-                LayoutInflater factory = LayoutInflater.from(Employees.this);
+                LayoutInflater factory = LayoutInflater.from(getContext());
                 final View textEntryView = factory.inflate(R.layout.text_entry, null);
 
 
@@ -134,16 +118,16 @@ public class Employees extends AppCompatActivity implements MyRecyclerViewAdapte
                 final EditText inputdeg = (EditText) textEntryView.findViewById(R.id.Editempldeg);
                 final EditText inputphone = (EditText) textEntryView.findViewById(R.id.Editemplphone);
                 final Spinner mySpinner = (Spinner) textEntryView.findViewById(R.id.spinner);
-                Button btn_save=(Button)textEntryView.findViewById(R.id.btn_save);
+                Button btn_save = (Button) textEntryView.findViewById(R.id.btn_save);
 
                 inputname.setText(null);
 
-                ArrayAdapter<String> myAdapter = new ArrayAdapter<String>(Employees.this,
+                ArrayAdapter<String> myAdapter = new ArrayAdapter<String>(getContext(),
                         android.R.layout.simple_expandable_list_item_1, getResources().getStringArray(R.array.Desginations));
                 myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 mySpinner.setAdapter(myAdapter);
 
-                final AlertDialog.Builder alert = new AlertDialog.Builder(Employees.this);
+                final AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
 
                 alert.setView(textEntryView);
                 final AlertDialog testDialog = alert.create();
@@ -159,66 +143,59 @@ public class Employees extends AppCompatActivity implements MyRecyclerViewAdapte
                         if (TextUtils.isEmpty(name)) {
                             inputname.setError("Mandatory");
 
-                        }
-                       else  if (TextUtils.isEmpty(UAN_id)) {
+                        } else if (TextUtils.isEmpty(UAN_id)) {
                             inputUAN.setError("Mandatory");
 
-                        }
-                       else if (UAN_id.length()!= 12){
-                           inputUAN.setError("UAN_ID will be 12 letter");
-                        }
-                        else  if (TextUtils.isEmpty(inputdeg.getText().toString().trim())) {
+                        } else if (UAN_id.length() != 12) {
+                            inputUAN.setError("UAN_ID will be 12 letter");
+                        } else if (TextUtils.isEmpty(inputdeg.getText().toString().trim())) {
                             inputdeg.setError("Mandatory");
-                        }
-                        else{
-                         //   Toast.makeText(Employees.this, "Done", Toast.LENGTH_SHORT).show();
+                        } else {
+                            //   Toast.makeText(Employees.this, "Done", Toast.LENGTH_SHORT).show();
 
-                                            userId = Objects.requireNonNull(fAuth.getCurrentUser()).getUid();
-                                            DocumentReference documentReference = fStore.collection("Users Detail").document(userId).collection("Employee List").document(UAN_id);
-                                            Map<String, Object> user = new HashMap<>();
-                                            user.put("Full Name", name);
-                                            user.put("UAN", UAN_id);
-                                            user.put("Desgination", Deg);
-                                            user.put("Phone", phone);
+                            userId = Objects.requireNonNull(fAuth.getCurrentUser()).getUid();
+                            DocumentReference documentReference = fStore.collection("Users Detail").document(userId).collection("Employee List").document(UAN_id);
+                            Map<String, Object> user = new HashMap<>();
+                            user.put("Full Name", name);
+                            user.put("UAN", UAN_id);
+                            user.put("Desgination", Deg);
+                            user.put("Phone", phone);
 
-                                            final String finalName = name;
-                                            documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                @Override
-                                                public void onSuccess(Void aVoid) {
-                                                    Toast.makeText(getApplicationContext(), finalName + " is added.", Toast.LENGTH_SHORT).show();
-                                                    work();
+                            final String finalName = name;
+                            documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Toast.makeText(getContext(), finalName + " is added.", Toast.LENGTH_SHORT).show();
+                                    work();
 
-                                                }
-                                            });
+                                }
+                            });
 
 
-                                            DocumentReference documentReference1 = fStore.collection("Employees List").document(UAN_id);
-                                            Map<String, Object> user1 = new HashMap<>();
-                                            user1.put("Full Name", name);
-                                            user1.put("UAN", UAN_id);
-                                            user1.put("Desgination", Deg);
-                                            user1.put("Phone", phone);
-                                            documentReference1.set(user1);
+                            DocumentReference documentReference1 = fStore.collection("Employees List").document(UAN_id);
+                            Map<String, Object> user1 = new HashMap<>();
+                            user1.put("Full Name", name);
+                            user1.put("UAN", UAN_id);
+                            user1.put("Desgination", Deg);
+                            user1.put("Phone", phone);
+                            documentReference1.set(user1);
 
                             testDialog.dismiss();
-                                        }
-
-
                         }
+
+
+                    }
 
 
                 });
 
 
-
-
-
             }
         });
-
     }
 
     private void work() {
+
 
         FirebaseFirestore.getInstance().collection("Users Detail/" + userId + "/Employee List").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -236,14 +213,14 @@ public class Employees extends AppCompatActivity implements MyRecyclerViewAdapte
 
                     }
 
-                    mAdapter = new MyRecyclerViewAdapter(getDataSet(), Employees.this);
+                    mAdapter = new MyRecyclerViewAdapter(getDataSet(), com.Creation.App.fragment.Employees.this);
                     mRecyclerView.setAdapter(mAdapter);
                     Log.d("TAG", UAN_i.toString());
 
                     //  Toast.makeText(Employees.this, rf_id.toString(), Toast.LENGTH_SHORT).show();
                 } else {
                     Log.d("TAG", "Error getting documents: ", task.getException());
-                    Toast.makeText(Employees.this, "Error getting documents", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Error getting documents", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -261,16 +238,18 @@ public class Employees extends AppCompatActivity implements MyRecyclerViewAdapte
             //Here the error is showing that this line is not valid.
             data[2][index] = Deg.get(index);
             data[3][index] = phone.get(index);
+
         }
         return results;
     }
 
     @Override
     public void onItemClick(final int position) {
+
         Log.d("ITEM CLICKED", "Clicked an item: " + position);
         //Toast.makeText(this, "Name="+ data[0][position]+","+" RF Id="+data[1][position], Toast.LENGTH_SHORT).show();
 
-        final LayoutInflater factory = LayoutInflater.from(Employees.this);
+        final LayoutInflater factory = LayoutInflater.from(getContext());
         final View textEntryView = factory.inflate(R.layout.activity_employee_retrive, null);
         TextView textView = (TextView) textEntryView.findViewById(R.id.employee_retrive_name);
         textView.setText(data[0][position]);
@@ -281,7 +260,7 @@ public class Employees extends AppCompatActivity implements MyRecyclerViewAdapte
         TextView textView4 = (TextView) textEntryView.findViewById(R.id.employee_retrive_phone);
         textView4.setText(data[3][position]);
 
-        final AlertDialog.Builder alert = new AlertDialog.Builder(Employees.this);
+        final AlertDialog.Builder alert = new AlertDialog.Builder(Objects.requireNonNull(getContext()));
         alert.setView(textEntryView).setPositiveButton("Delete",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog,
@@ -291,22 +270,21 @@ public class Employees extends AppCompatActivity implements MyRecyclerViewAdapte
                             @Override
                             public void onSuccess(Void aVoid) {
 
-                                Toast.makeText(Employees.this, "Your Data is successfull Delete", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getContext(), "Your Data is successfull Delete", Toast.LENGTH_SHORT).show();
                                 work();
                             }
                         });
 
                     }
-                }).setNegativeButton("Del",
+                }).setNegativeButton("Cancel",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog,
                                         int whichButton) {
-                        Toast.makeText(Employees.this, "Profile Deteted", Toast.LENGTH_SHORT).show();
+
 
                     }
                 });
         alert.show();
-
 
     }
 }
