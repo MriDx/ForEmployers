@@ -8,13 +8,15 @@
 
 
     <TextView
-        android:id="@+id/emplentryName"
+        android:id="@+id/supEntryName"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
         android:fontFamily="@font/aldrich"
         android:text="Full Name *"
         android:textColor="#000000"
         android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/EditeSupname"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.548"
         app:layout_constraintStart_toStartOf="parent"
@@ -29,14 +31,15 @@
         android:text="Employee UAN No.  *"
         android:textColor="#000000"
         android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/EdittUAN"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.548"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Editemplname"
+        app:layout_constraintTop_toBottomOf="@+id/EditeSupname"
         tools:ignore="HardcodedText" />
 
     <EditText
-        android:id="@+id/Editemplname"
+        android:id="@+id/EditeSupname"
         android:layout_width="300dp"
         android:layout_height="30dp"
         android:background="@drawable/border_black"
@@ -45,10 +48,11 @@
         android:inputType="textCapCharacters"
         android:textColor="#000000"
         android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/emplUAN"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.548"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/emplentryName"
+        app:layout_constraintTop_toBottomOf="@+id/supEntryName"
         tools:ignore="Autofill,LabelFor" />
 
     <EditText
@@ -61,29 +65,46 @@
         android:fontFamily="@font/aldrich"
         android:inputType="number"
         android:textColor="#000000"
-        app:layout_constraintEnd_toEndOf="parent"
         android:textColorHint="#E4E4E4"
         android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/emplPhone"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/emplUAN"
         tools:ignore="Autofill,HardcodedText" />
 
     <TextView
-        android:id="@+id/empldeg"
+        android:id="@+id/supUser"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:fontFamily="@font/aldrich"
-        android:text="Designation  *"
+        android:text="User Name"
         android:textColor="#000000"
         android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/EditeSupUser"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/EdittUAN"
+        app:layout_constraintTop_toBottomOf="@+id/Editemplphone"
+        tools:ignore="HardcodedText" />
+
+    <TextView
+        android:id="@+id/supPassword"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:fontFamily="@font/aldrich"
+        android:text="Password"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/EditUserPassword"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/EditeSupUser"
         tools:ignore="HardcodedText" />
 
     <EditText
-        android:id="@+id/Editempldeg"
+        android:id="@+id/EditeSupUser"
         android:layout_width="300dp"
         android:layout_height="30dp"
         android:layout_marginStart="8dp"
@@ -93,27 +114,11 @@
         android:inputType="textCapCharacters"
         android:textColor="#000000"
         android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/supPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/empldeg"
+        app:layout_constraintTop_toBottomOf="@+id/supUser"
         tools:ignore="Autofill,LabelFor" />
-
-    <Spinner
-        android:id="@+id/spinner"
-        android:layout_width="300dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/border_black"
-        android:ems="10"
-        android:fontFamily="@font/aldrich"
-        android:hint="Optional"
-        android:inputType="phone"
-        android:textColor="#000000"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Editemplphone" />
 
     <TextView
         android:id="@+id/emplPhone"
@@ -124,9 +129,10 @@
         android:text="Employee Phone Number"
         android:textColor="#000000"
         android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/Editemplphone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Editempldeg"
+        app:layout_constraintTop_toBottomOf="@+id/EdittUAN"
         tools:ignore="HardcodedText" />
 
     <EditText
@@ -141,6 +147,7 @@
         android:inputType="phone"
         android:textColor="#000000"
         android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/supUser"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/emplPhone"
@@ -150,15 +157,26 @@
         android:id="@+id/btn_save"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/border_black"
         android:text="Save"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinner"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/EditUserPassword" />
+
+    <EditText
+        android:id="@+id/EditUserPassword"
+        android:layout_width="300dp"
+        android:layout_height="30dp"
+        android:layout_marginBottom="17dp"
+        android:background="@drawable/border_black"
+        android:ems="10"
+        android:inputType="textPassword"
+        app:layout_constraintBottom_toTopOf="@+id/btn_save"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.548"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/supPassword" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
