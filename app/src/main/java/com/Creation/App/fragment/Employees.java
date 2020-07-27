@@ -49,7 +49,7 @@ public class Employees extends Fragment implements MyRecyclerViewAdapter.OnListI
     FirebaseFirestore fStore;
     String userId, UAN_id;
     TextView employeeRetrive;
-    List<String> UAN_i, name, Deg, phone;
+    List<String> UAN_i, name, User_Name, phone, password;
     String UserId, UAN;
     String[][] data = new String[4][100];
     private RecyclerView mRecyclerView;
@@ -153,13 +153,20 @@ public class Employees extends Fragment implements MyRecyclerViewAdapter.OnListI
 
                         } else if (UAN_id.length() != 12) {
                             inputUAN.setError("UAN_ID will be 12 letter");
-                        } else if (TextUtils.isEmpty(inputUser_Name.getText().toString().trim())) {
+                        } else if (TextUtils.isEmpty(User_Name)) {
                             inputUser_Name.setError("Mandatory");
-                        } else {
+                        } else if (User_Name.length() <= 4){
+                            inputUser_Name.setError("Please Enter the Above 4 Digit");
+                        }else if (TextUtils.isEmpty(password)){
+                            inputpassword.setError("Password must be added");
+                        }else if (password.length() <= 6){
+                            inputpassword.setError("Password must be 6 Character Long");
+                        }
+                        else {
                             //   Toast.makeText(Employees.this, "Done", Toast.LENGTH_SHORT).show();
 
                             userId = Objects.requireNonNull(fAuth.getCurrentUser()).getUid();
-                            DocumentReference documentReference = fStore.collection("Users Detail").document(userId).collection("Employee List").document(User_Name);
+                            DocumentReference documentReference = fStore.collection("Users Detail").document(userId).collection("Supervisor List").document(User_Name);
                             Map<String, Object> user = new HashMap<>();
                             user.put("Supervisor Name", name);
                             user.put("UAN", UAN_id);
@@ -171,20 +178,20 @@ public class Employees extends Fragment implements MyRecyclerViewAdapter.OnListI
                             documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
-                                    Toast.makeText(getContext(), finalName + " is added.", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getContext(), "Supervisor" +finalName + " is added.", Toast.LENGTH_SHORT).show();
                                     work();
 
                                 }
                             });
 
 
-                            DocumentReference documentReference1 = fStore.collection("Employees List").document(UAN_id);
-                            Map<String, Object> user1 = new HashMap<>();
-                            user1.put("Full Name", name);
-                            user1.put("UAN", UAN_id);
-                            user1.put("Desgination", Deg);
-                            user1.put("Phone", phone);
-                            documentReference1.set(user1);
+                           // DocumentReference documentReference1 = fStore.collection("Employees List").document(UAN_id);
+                            //Map<String, Object> user1 = new HashMap<>();
+                           // user1.put("Full Name", name);
+                           // user1.put("UAN", UAN_id);
+                           // user1.put("Desgination", User_Name);
+                           // user1.put("Phone", phone);
+                           // documentReference1.set(user1);
 
                             testDialog.dismiss();
                         }
@@ -208,19 +215,19 @@ public class Employees extends Fragment implements MyRecyclerViewAdapter.OnListI
                 if (task.isSuccessful()) {
                     UAN_i = new ArrayList<>();
                     name = new ArrayList<>();
-                    Deg = new ArrayList<>();
+                    User_Name = new ArrayList<>();
                     phone = new ArrayList<>();
                     for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
                         name.add(document.getString("Supervisor Name"));
                         UAN_i.add(document.getString("UAN"));
-                        Deg.add(document.getString("Desgination"));
+                        User_Name.add(document.getString("User ID"));
                         phone.add(document.getString("Phone"));
 
                     }
 
                     mAdapter = new MyRecyclerViewAdapter(getDataSet(), com.Creation.App.fragment.Employees.this);
                     mRecyclerView.setAdapter(mAdapter);
-                    Log.d("TAG", UAN_i.toString());
+                    Log.d("TAG", User_Name.toString());
 
                     //  Toast.makeText(Employees.this, rf_id.toString(), Toast.LENGTH_SHORT).show();
                 } else {
@@ -241,7 +248,7 @@ public class Employees extends Fragment implements MyRecyclerViewAdapter.OnListI
             data[0][index] = name.get(index);
             data[1][index] = UAN_i.get(index);
             //Here the error is showing that this line is not valid.
-            data[2][index] = Deg.get(index);
+            data[2][index] = User_Name.get(index);
             data[3][index] = phone.get(index);
 
         }
@@ -271,7 +278,7 @@ public class Employees extends Fragment implements MyRecyclerViewAdapter.OnListI
                     public void onClick(DialogInterface dialog,
                                         int whichButton) {
 
-                        Task<Void> documentReference = fStore.collection("Users Detail/" + userId + "/Employee List").document(data[1][position]).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                        Task<Void> documentReference = fStore.collection("Users Detail/" + userId + "/Supervisor List").document(data[1][position]).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
 
