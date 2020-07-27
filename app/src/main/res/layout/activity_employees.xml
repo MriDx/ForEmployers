@@ -8,53 +8,6 @@
     android:background="@drawable/new_login_background"
     >
 
-    <LinearLayout
-        android:id="@+id/linearLayout3"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-
-        <Button
-            android:id="@+id/btn_monthly"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_weight="1"
-            android:background="@drawable/home_buttons"
-            android:fontFamily="@font/akronim"
-            android:text="Monthly"
-            android:textSize="14sp" />
-
-        <Button
-            android:id="@+id/btn_annual"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_weight="1"
-            android:background="@drawable/home_buttons"
-            android:fontFamily="@font/akronim"
-            android:text="Annual"
-            android:textSize="14sp" />
-
-        <Button
-            android:id="@+id/btn_profile"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_weight="1"
-            android:background="@drawable/home_buttons"
-            android:fontFamily="@font/akronim"
-            android:text="Profile"
-            android:textSize="14sp" />
-    </LinearLayout>
-
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
@@ -62,14 +15,11 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
 
-        android:layout_marginBottom="55dp"
         android:src="@android:drawable/ic_input_add"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.974"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/my_recycler_view"
-        app:layout_constraintVertical_bias="0.93"
         tools:ignore="MissingConstraints" />
 
     <androidx.recyclerview.widget.RecyclerView
@@ -81,7 +31,7 @@
         android:background="@android:color/transparent"
         android:paddingBottom="16dp"
         android:scrollbars="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
+        app:layout_constraintBottom_toTopOf="@+id/fab"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.567"
         app:layout_constraintStart_toStartOf="parent"
@@ -105,6 +55,7 @@
         android:layout_height="wrap_content"
         android:textSize="20sp"
         app:layout_constraintTop_toBottomOf="@+id/pageName"
+        tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="357dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
