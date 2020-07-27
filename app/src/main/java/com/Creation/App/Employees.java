@@ -184,7 +184,7 @@ public class Employees extends AppCompatActivity implements MyRecyclerViewAdapte
                                             user.put("Supervisor Name", name);
                                             user.put("UAN", UAN_id);
                                             user.put("Phone", phone);
-                                            user.put("User Name", userId);
+                                            user.put("User Name", User_id);
                                             user.put("Password", password);
 
                                             final String finalName = name;
