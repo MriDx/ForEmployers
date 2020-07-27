@@ -8,55 +8,6 @@
     tools:context=".Monthly">
 
 
-    <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <Button
-            android:id="@+id/btn_annual"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_weight="1"
-            android:background="@drawable/home_buttons"
-            android:fontFamily="@font/akronim"
-            android:text="Annual"
-            android:textSize="14sp"
-            tools:ignore="ButtonStyle,HardcodedText" />
-
-        <Button
-            android:id="@+id/btn_employees"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_weight="1"
-            android:background="@drawable/home_buttons"
-            android:fontFamily="@font/akronim"
-            android:text="Emp"
-            android:textSize="14sp"
-            tools:ignore="ButtonStyle,HardcodedText" />
-
-        <Button
-            android:id="@+id/btn_profile"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_weight="1"
-            android:background="@drawable/home_buttons"
-            android:fontFamily="@font/akronim"
-            android:text="Profile"
-            android:textSize="14sp"
-            tools:ignore="ButtonStyle,HardcodedText" />
-    </LinearLayout>
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/my_recycler_view"
         android:layout_width="0dp"
@@ -66,7 +17,7 @@
         android:background="@android:color/transparent"
         android:paddingBottom="16dp"
         android:scrollbars="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+        app:layout_constraintBottom_toTopOf="@+id/button_go"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -77,7 +28,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Refresh"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="HardcodedText"

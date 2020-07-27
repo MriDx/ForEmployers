@@ -7,8 +7,10 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -70,7 +72,6 @@ public class Employees extends AppCompatActivity implements MyRecyclerViewAdapte
         fStore = FirebaseFirestore.getInstance();
 
         Button Monthly = findViewById(R.id.btn_monthly);
-
         Button Annual = findViewById(R.id.btn_annual);
 
         Button Profile = findViewById(R.id.btn_profile);
@@ -128,19 +129,19 @@ public class Employees extends AppCompatActivity implements MyRecyclerViewAdapte
                 final View textEntryView = factory.inflate(R.layout.text_entry, null);
 
 
-                final EditText inputname = (EditText) textEntryView.findViewById(R.id.EditeSupname);
+                final EditText inputname = (EditText) textEntryView.findViewById(R.id.Editemplname);
                 final EditText inputUAN = (EditText) textEntryView.findViewById(R.id.EdittUAN);
-                final EditText inputuserId = (EditText) textEntryView.findViewById(R.id.EditeSupUser); // Changed
+                final EditText inputdeg = (EditText) textEntryView.findViewById(R.id.Editempldeg);
                 final EditText inputphone = (EditText) textEntryView.findViewById(R.id.Editemplphone);
-                final EditText inputPassword = (EditText) textEntryView.findViewById(R.id.EditUserPassword); //Changed
+                final Spinner mySpinner = (Spinner) textEntryView.findViewById(R.id.spinner);
                 Button btn_save=(Button)textEntryView.findViewById(R.id.btn_save);
 
                 inputname.setText(null);
 
-               // ArrayAdapter<String> myAdapter = new ArrayAdapter<String>(Employees.this,
-                  //      android.R.layout.simple_expandable_list_item_1, getResources().getStringArray(R.array.Desginations));
-               // myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-               // mySpinner.setAdapter(myAdapter);
+                ArrayAdapter<String> myAdapter = new ArrayAdapter<String>(Employees.this,
+                        android.R.layout.simple_expandable_list_item_1, getResources().getStringArray(R.array.Desginations));
+                myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                mySpinner.setAdapter(myAdapter);
 
                 final AlertDialog.Builder alert = new AlertDialog.Builder(Employees.this);
 
@@ -151,13 +152,13 @@ public class Employees extends AppCompatActivity implements MyRecyclerViewAdapte
                     @Override
                     public void onClick(View view) {
                         String name = inputname.getText().toString().trim();
-                        String UAN_id = inputUAN.getText().toString().trim();
-                        String User_id = inputuserId.getText().toString().trim(); //Changed
+                        String UAN_id = inputUAN.getText().toString();
+                        String Deg = inputdeg.getText().toString();
                         String phone = inputphone.getText().toString();
-                        String password = inputPassword.getText().toString().trim(); //Added
                         //Toast.makeText(Employees.this, name, Toast.LENGTH_SHORT).show();
                         if (TextUtils.isEmpty(name)) {
                             inputname.setError("Mandatory");
+
                         }
                        else  if (TextUtils.isEmpty(UAN_id)) {
                             inputUAN.setError("Mandatory");
@@ -166,26 +167,19 @@ public class Employees extends AppCompatActivity implements MyRecyclerViewAdapte
                        else if (UAN_id.length()!= 12){
                            inputUAN.setError("UAN_ID will be 12 letter");
                         }
-                        else  if (TextUtils.isEmpty(User_id)) {
-                            inputuserId.setError("Mandatory");
-                        }else if (User_id.length() != 4){
-                            inputuserId.setError("Please Enter only 4 Digits");
-                        }else if(TextUtils.isEmpty(password)){
-                            inputPassword.setError("Please Enter the Password");
-                        }else if (password.length() <= 6){
-                            inputPassword.setError("Please Enter 6 digits password");
+                        else  if (TextUtils.isEmpty(inputdeg.getText().toString().trim())) {
+                            inputdeg.setError("Mandatory");
                         }
                         else{
                          //   Toast.makeText(Employees.this, "Done", Toast.LENGTH_SHORT).show();
 
                                             userId = Objects.requireNonNull(fAuth.getCurrentUser()).getUid();
-                                            DocumentReference documentReference = fStore.collection("Users Detail").document(userId).collection("Supervisor List").document(User_id);
+                                            DocumentReference documentReference = fStore.collection("Users Detail").document(userId).collection("Employee List").document(UAN_id);
                                             Map<String, Object> user = new HashMap<>();
-                                            user.put("Supervisor Name", name);
+                                            user.put("Full Name", name);
                                             user.put("UAN", UAN_id);
+                                            user.put("Desgination", Deg);
                                             user.put("Phone", phone);
-                                            user.put("User Name", User_id);
-                                            user.put("Password", password);
 
                                             final String finalName = name;
                                             documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -198,13 +192,13 @@ public class Employees extends AppCompatActivity implements MyRecyclerViewAdapte
                                             });
 
 
-                                           // DocumentReference documentReference1 = fStore.collection("Employees List").document(UAN_id);
-                                            //Map<String, Object> user1 = new HashMap<>();
-                                            //user1.put("Full Name", name);
-                                            //user1.put("UAN", UAN_id);
-                                            //user1.put("Desgination", Deg);
-                                            //user1.put("Phone", phone);
-                                            //documentReference1.set(user1);
+                                            DocumentReference documentReference1 = fStore.collection("Employees List").document(UAN_id);
+                                            Map<String, Object> user1 = new HashMap<>();
+                                            user1.put("Full Name", name);
+                                            user1.put("UAN", UAN_id);
+                                            user1.put("Desgination", Deg);
+                                            user1.put("Phone", phone);
+                                            documentReference1.set(user1);
 
                             testDialog.dismiss();
                                         }
@@ -226,7 +220,7 @@ public class Employees extends AppCompatActivity implements MyRecyclerViewAdapte
 
     private void work() {
 
-        FirebaseFirestore.getInstance().collection("Users Detail/" + userId + "/Supervisor List").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        FirebaseFirestore.getInstance().collection("Users Detail/" + userId + "/Employee List").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
@@ -235,7 +229,7 @@ public class Employees extends AppCompatActivity implements MyRecyclerViewAdapte
                     Deg = new ArrayList<>();
                     phone = new ArrayList<>();
                     for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
-                        name.add(document.getString("Supervisor Name"));
+                        name.add(document.getString("Full Name"));
                         UAN_i.add(document.getString("UAN"));
                         Deg.add(document.getString("Desgination"));
                         phone.add(document.getString("Phone"));

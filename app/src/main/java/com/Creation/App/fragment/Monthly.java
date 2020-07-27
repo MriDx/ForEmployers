@@ -1,19 +1,24 @@
-package com.Creation.App;
 
-import android.content.Intent;
+package com.Creation.App.fragment;
+
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.Creation.App.DataObject;
+import com.Creation.App.MyRecyclerViewAdapterView;
+import com.Creation.App.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -31,8 +36,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
-@SuppressWarnings("ALL")
-public class Monthly extends AppCompatActivity {
+public class Monthly extends Fragment {
 
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
@@ -41,7 +45,7 @@ public class Monthly extends AppCompatActivity {
     //Attendance View
     List<String> name, d1, d2, d3, d4, d5, d6, d7, d8, d9, d10, key, UAN_i, date_data, d11, d12, d13, d14, d15, d16, d17, d18, d19, d20, d21, d22, d23, d24, d25, d26, d27, d28, d29, d30, d31;
     String UserId, UAN;
-   // Attendance View
+    // Attendance View
     String[][] data = new String[4][100];
     int index;
     Button button_go;
@@ -49,18 +53,29 @@ public class Monthly extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+    public Monthly() {
+        // Required empty public constructor
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_monthly);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.activity_monthly, container, false);
+        initView(view);
+        return view;
+    }
 
-        mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
+    private void initView(View view) {
+        //do your work here
+
+
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.my_recycler_view);
         mRecyclerView.setHasFixedSize(true);
-        employeeRetrive = findViewById(R.id.employee_retrive_name);
-        mLayoutManager = new LinearLayoutManager(this);
+        employeeRetrive = view.findViewById(R.id.employee_retrive_name);
+        mLayoutManager = new LinearLayoutManager(getContext());
         mRecyclerView.setLayoutManager(mLayoutManager);
-        button_go = findViewById(R.id.button_go);
+        button_go = view.findViewById(R.id.button_go);
 
         fAuth = FirebaseAuth.getInstance();
 
@@ -70,34 +85,8 @@ public class Monthly extends AppCompatActivity {
 
         go = false;
         button_go.setVisibility(View.INVISIBLE);
-        final Button Monthly = findViewById(R.id.btn_monthly);
-        Button Annual = findViewById(R.id.btn_annual);
-        Button Employee = findViewById(R.id.btn_employees);
-        Button Profile = findViewById(R.id.btn_profile);
-        Annual.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), Annual.class);
-                startActivity(intent);
-                finish();
-            }
-        });
-        Employee.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), Employees.class);
-                startActivity(intent);
-                finish();
-            }
-        });
-        Profile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), Profile.class);
-                startActivity(intent);
-                finish();
-            }
-        });
+
+
 
         key = new ArrayList<>();
         name = new ArrayList<>();
@@ -161,7 +150,6 @@ public class Monthly extends AppCompatActivity {
                 mRecyclerView.setAdapter(mAdapter);
             }
         });
-
     }
 
     private void work() {
@@ -406,7 +394,7 @@ public class Monthly extends AppCompatActivity {
                                         // button_go.setVisibility(View.VISIBLE);
                                     }
                                 }
-                                }
+                            }
 
 
                         });
@@ -857,7 +845,7 @@ public class Monthly extends AppCompatActivity {
                     //  Toast.makeText(Employees.this, rf_id.toString(), Toast.LENGTH_SHORT).show();
                 } else {
                     Log.d("TAG", "Error getting documents: ", task.getException());
-                    Toast.makeText(Monthly.this, "Error getting documents", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Error getting documents", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -876,6 +864,4 @@ public class Monthly extends AppCompatActivity {
         }
         return results;
     }
-
-
 }

@@ -1,11 +1,14 @@
-package com.Creation.App;
+
+package com.Creation.App.fragment;
 
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.ContextThemeWrapper;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -14,8 +17,11 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
+import com.Creation.App.Login;
+import com.Creation.App.R;
+import com.Creation.App.UserSession;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -26,8 +32,7 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 
-@SuppressWarnings("ALL")
-public class Profile extends AppCompatActivity {
+public class Profile extends Fragment {
     TextView EstName,gstNum,phone,email;
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
@@ -35,57 +40,43 @@ public class Profile extends AppCompatActivity {
     Button changePassword;
     FirebaseUser userv;
 
+    public Profile() {
+        // Required empty public constructor
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile);
-        Button Monthly=findViewById(R.id.btn_monthly);
-        Button Annual=findViewById(R.id.btn_annual);
-        Button Employee=findViewById(R.id.btn_employees);
-       // Button Profile=findViewById(R.id.btn_profile);
-        Button logout=findViewById(R.id.LogoutBtn);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.activity_profile, container, false);
+        initView(view);
+        return view;
+    }
+
+    private void initView(View view) {
+        //do your work here
+
+
+        // Button Profile=findViewById(R.id.btn_profile);
+        Button logout=view.findViewById(R.id.LogoutBtn);
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 FirebaseAuth.getInstance().signOut();
-                new UserSession(Profile.this).removeUser();
-                Intent intent = new Intent(getApplicationContext(),Login.class);
+                new UserSession(getContext()).removeUser();
+                Intent intent = new Intent(getContext(), Login.class);
                 startActivity(intent);
-                finish();
-            }
-        });
-        Monthly.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent=new Intent(getApplicationContext(),Monthly.class);
-                startActivity(intent);
-                finish();
-            }
-        });
-        Annual.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent=new Intent(getApplicationContext(),Annual.class);
-                startActivity(intent);
-                finish();
-            }
-        });
-        Employee.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent=new Intent(getApplicationContext(),Employees.class);
-                startActivity(intent);
-                finish();
+                getActivity().finish();
             }
         });
 
-        EstName = findViewById(R.id.profileESTName);
-        phone = findViewById(R.id.profilePhone);
-        email =findViewById(R.id.profileEmail);
-        gstNum = findViewById(R.id.profileGSTNum);
-        changePassword = findViewById(R.id.changepasswordlocal);
+
+        EstName = view.findViewById(R.id.profileESTName);
+        phone = view.findViewById(R.id.profilePhone);
+        email =view.findViewById(R.id.profileEmail);
+        gstNum = view.findViewById(R.id.profileGSTNum);
+        changePassword = view.findViewById(R.id.changepasswordlocal);
 
 
         fAuth = FirebaseAuth.getInstance();
@@ -95,7 +86,7 @@ public class Profile extends AppCompatActivity {
         userv = fAuth.getCurrentUser();
 
         DocumentReference documentReference = fStore.collection("Users Detail").document(UserId);
-        documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
+        documentReference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
                 if (e != null){
@@ -116,8 +107,8 @@ public class Profile extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                final EditText changePassword = new EditText(getApplicationContext());
-                AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(Profile.this, R.style.myDialog));
+                final EditText changePassword = new EditText(getContext());
+                AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(getActivity(), R.style.myDialog));
                 builder.setTitle("Change the Password")
                         .setMessage("Enter Your New Password > 6 Characters long.")
                         .setView(changePassword)
@@ -128,12 +119,12 @@ public class Profile extends AppCompatActivity {
                                 userv.updatePassword(newPassword).addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
-                                        Toast.makeText(Profile.this, "Password changed Successfully.", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getContext(), "Password changed Successfully.", Toast.LENGTH_SHORT).show();
                                     }
                                 }).addOnFailureListener(new OnFailureListener() {
                                     @Override
                                     public void onFailure(@NonNull Exception e) {
-                                        Toast.makeText(Profile.this, "Password changed Failed", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getContext(), "Password changed Failed", Toast.LENGTH_SHORT).show();
                                     }
                                 });
                             }

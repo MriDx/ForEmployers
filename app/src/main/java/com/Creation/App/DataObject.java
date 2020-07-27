@@ -70,7 +70,7 @@ public class DataObject {
 
     }
 
-    DataObject(String text1, String text2) {
+    public DataObject(String text1, String text2) {
         mText1 = text1;
         mText2 = text2;
 
