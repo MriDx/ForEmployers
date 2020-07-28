@@ -106,6 +106,7 @@ public class Employees extends Fragment implements MyRecyclerViewAdapter.OnListI
 
         work();
 
+
         FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -238,7 +239,7 @@ public class Employees extends Fragment implements MyRecyclerViewAdapter.OnListI
     }
 
     private ArrayList<DataObject> getDataSet() {
-        ArrayList results = new ArrayList<DataObject1>();
+        ArrayList results = new ArrayList<DataObject>();
 
 
         for (int index = 0; index < name.size(); index++) {
@@ -253,7 +254,7 @@ public class Employees extends Fragment implements MyRecyclerViewAdapter.OnListI
         }
         return results;
     }
-
+//I create the changes here On OnItemCLick function, On layout Inflater i add the Recycler View.
     @Override
     public void onItemClick(final int position) {
 
@@ -308,7 +309,6 @@ public class Employees extends Fragment implements MyRecyclerViewAdapter.OnListI
             results.add(index, obj2);
             data[0][index] = name.get(index);
             data[1][index] = UAN_i.get(index);
-            //Here the error is showing that this line is not valid.
             data[2][index] = User_Name.get(index);
             data[3][index] = phone.get(index);
 

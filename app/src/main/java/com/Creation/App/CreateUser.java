@@ -145,7 +145,7 @@ public class CreateUser extends AppCompatActivity {
 
 
                                     Toast.makeText(CreateUser.this, "User Created", Toast.LENGTH_SHORT).show();
-                                    userId = Objects.requireNonNull(fAuth.getCurrentUser()).getUid();
+                                    userId = Objects.requireNonNull(fAuth.getCurrentUser()).getEmail();
                                     DocumentReference documentReference = fStore.collection("Users Detail").document(userId);
                                     Map<String, Object> user = new HashMap<>();
                                     user.put("Establisment Name", Estblishment);
