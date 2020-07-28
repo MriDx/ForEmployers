@@ -165,7 +165,7 @@ public class Employees extends Fragment implements MyRecyclerViewAdapter.OnListI
                         else {
                             //   Toast.makeText(Employees.this, "Done", Toast.LENGTH_SHORT).show();
 
-                            userId = Objects.requireNonNull(fAuth.getCurrentUser()).getUid();
+                            userId = Objects.requireNonNull(fAuth.getCurrentUser()).getEmail();
                             DocumentReference documentReference = fStore.collection("Users Detail").document(userId).collection("Supervisor List").document(User_Name);
                             Map<String, Object> user = new HashMap<>();
                             user.put("Supervisor Name", name);
@@ -222,9 +222,7 @@ public class Employees extends Fragment implements MyRecyclerViewAdapter.OnListI
                         UAN_i.add(document.getString("UAN"));
                         User_Name.add(document.getString("User ID"));
                         phone.add(document.getString("Phone"));
-
                     }
-
                     mAdapter = new MyRecyclerViewAdapter(getDataSet(), com.Creation.App.fragment.Employees.this);
                     mRecyclerView.setAdapter(mAdapter);
                     Log.d("TAG", User_Name.toString());
