@@ -191,4 +191,10 @@ public class CreateUser extends AppCompatActivity {
             }
         });
     }
+    public void onDestroy() {
+
+        super.onDestroy();
+
+
+    }
 }

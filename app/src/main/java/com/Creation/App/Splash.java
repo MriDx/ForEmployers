@@ -22,10 +22,13 @@ public class Splash extends AppCompatActivity {
             @Override
             public void run(){
                 try {
+
                     sleep(1000);
                     Intent intent = new Intent(getApplicationContext(), ClientCheck.class);
                     startActivity(intent);
                     finish();
+
+
                     /**
                     if(userSession.getEmail() !="") {
                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);

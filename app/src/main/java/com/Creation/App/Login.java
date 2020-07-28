@@ -1,9 +1,5 @@
 package com.Creation.App;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,6 +11,11 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -28,12 +29,18 @@ public class Login extends AppCompatActivity {
     FirebaseAuth fAuth;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        final UserSession userSession= new UserSession(Login.this);
 
+        if(userSession.getEmail() !="") {
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            intent.putExtra("name",userSession.getEmail());
+            startActivity(intent);
+            finish();
+        }
         mEmail = findViewById(R.id.loginEmailId);
         mPassword = findViewById(R.id.loginPassword);
         mLoginBtn = findViewById(R.id.LoginBtn);
@@ -162,4 +169,5 @@ public class Login extends AppCompatActivity {
 
 
     }
+
 }

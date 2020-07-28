@@ -22,17 +22,18 @@ public class ClientCheck extends AppCompatActivity {
         supervisor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), Login.class);
-                startActivity(intent);
-                finish();
 
+                Toast.makeText(ClientCheck.this, "Comming Soon", Toast.LENGTH_SHORT).show();
             }
         });
 
         employer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(ClientCheck.this, "Comming Soon", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getApplicationContext(), Login.class);
+                startActivity(intent);
+                //finish();
+
             }
         });
     }
